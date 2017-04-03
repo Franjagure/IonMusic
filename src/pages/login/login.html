@@ -3,10 +3,10 @@
   <form (ngSubmit)="doLogin()">
     <ion-list>
       <ion-item>
-        <ion-input placeholder="Correo" type="email" [(ngModel)]="user.email" name="email"></ion-input>
+        <ion-input placeholder="Correo" type="email" [(ngModel)]="email" name="email" ></ion-input>
       </ion-item>
        <ion-item>
-        <ion-input placeholder="Contraseña" type="password" [(ngModel)]="user.password" name="password"></ion-input>
+        <ion-input placeholder="Contraseña" type="password" [(ngModel)]="password" name="password" ></ion-input>
       </ion-item>
     </ion-list>
     <button ion-button block type="submit"> Entrar </button>

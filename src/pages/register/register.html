@@ -14,5 +14,21 @@
 
 
 <ion-content padding>
-
+  <form padding (ngSubmit)="doRegister()">
+    <ion-list no-lines>
+      <ion-item>
+        <ion-input placeholder="Nombre usuario" type="text" [(ngModel)]="newUser.username" name="username"></ion-input>
+      </ion-item>
+       <ion-item>
+        <ion-input placeholder="Email" type="email" [(ngModel)]="newUser.email" name="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Contraseña" type="password" [(ngModel)]="newUser.password" name="password1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Confirmar contraseña" type="password" [(ngModel)]="newUser.passwordConfirm" name="password2"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button light outline ion-button block type="submit"> Registrar </button>
+    </form>
 </ion-content>
