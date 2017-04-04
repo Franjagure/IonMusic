@@ -1,34 +1,45 @@
-<!--
-  Generated template for the Register page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>register</ion-title>
+    <ion-title>Nueva cuenta</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <form padding (ngSubmit)="doRegister()">
+  <form [formGroup]="formRegister" padding (ngSubmit)="doRegister()">
     <ion-list no-lines>
       <ion-item>
-        <ion-input placeholder="Nombre usuario" type="text" [(ngModel)]="newUser.username" name="username"></ion-input>
+        <ion-label floating> Nombre de usuario </ion-label>
+        <ion-input formControlName="username" type="text" [(ngModel)]="newUser.username" ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!formRegister.controls.username.valid && (formRegister.controls.username.dirty || submitAttempt)">
+        <p style="color:dodgerblue; font-size:0,5em;">Introduzca un nombre válido</p>
       </ion-item>
        <ion-item>
-        <ion-input placeholder="Email" type="email" [(ngModel)]="newUser.email" name="email"></ion-input>
+         <ion-label floating> Email </ion-label>
+        <ion-input formControlName="email" [(ngModel)]="newUser.email" ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!formRegister.controls.email.valid && (formRegister.controls.email.dirty || submitAttempt)">
+        <p style="color:dodgerblue; font-size:0,5em;">Introduzca un email válido</p>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Contraseña" type="password" [(ngModel)]="newUser.password" name="password1"></ion-input>
+        <ion-label floating> Contraseña </ion-label>
+        <ion-input formControlName="password" type="password"  [(ngModel)]="newUser.password" ></ion-input>
+      </ion-item>
+        <ion-item *ngIf="!formRegister.controls.password.valid && (formRegister.controls.password.dirty || submitAttempt)">
+        <p style="color:dodgerblue; font-size:0,5em;">8 digitos mínimo.</p>
       </ion-item>
       <ion-item>
-        <ion-input placeholder="Confirmar contraseña" type="password" [(ngModel)]="newUser.passwordConfirm" name="password2"></ion-input>
+        <ion-label floating> Confirmar contraseña </ion-label>
+        <ion-input  formControlName="password2" type="password"  [(ngModel)]="newUser.password2" ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!formRegister.controls.password2.valid && (formRegister.controls.password2.dirty || submitAttempt)">
+        <p style="color:dodgerblue; font-size:0,5em;">Debe ser la misma clave</p>
       </ion-item>
     </ion-list>
-    <button light outline ion-button block type="submit"> Registrar </button>
+    <button light outline ion-button block type="submit" disabled="!formRegister.valid"> Registrar </button>
     </form>
 </ion-content>
