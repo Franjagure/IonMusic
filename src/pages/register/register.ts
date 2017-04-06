@@ -3,6 +3,7 @@ import { NavController, NavParams,AlertController,LoadingController } from 'ioni
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginPage } from '../login/login';
 import { ValidateEmail } from '../../providers/validate-email';
+import { ValidatePassword } from '../../providers/validate-password'; 
 
 
 @Component({
@@ -20,13 +21,14 @@ export class RegisterPage {
               public formBuilder: FormBuilder, 
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
-              public ValidateEmail: ValidateEmail) {
+              public ValidateEmail: ValidateEmail,
+              public ValidatePassword: ValidatePassword) {
   
    this.formRegister = this.formBuilder.group({
      username: ['',Validators.compose([Validators.maxLength(10), Validators.pattern('[a-zA-Z ]*'),Validators.required])],
      email: ['',ValidateEmail.isValid],
      password: ['',Validators.compose([Validators.required])],
-     password2: ['',Validators.compose([Validators.required])]
+     password2: ['',Validators.compose([Validators.required,ValidatePassword.isValid])]
    })
 
   }
