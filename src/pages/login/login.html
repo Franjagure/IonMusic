@@ -1,18 +1,19 @@
 
 <ion-content padding>
-  <form (ngSubmit)="doLogin()">
+  <form [formGroup]="formLogin" (ngSubmit)="doLogin()" no-validate>
     <ion-list>
       <ion-item>
-        <ion-input placeholder="Correo" type="email" [(ngModel)]="email" name="email" ></ion-input>
+        <ion-input formControlName="femail" placeholder="Correo" type="email" [(ngModel)]="email" name="email"></ion-input>
       </ion-item>
        <ion-item>
-        <ion-input placeholder="Contraseña" type="password" [(ngModel)]="password" name="password" ></ion-input>
+        <ion-input formControlName="fpassword" placeholder="Contraseña" type="password" [(ngModel)]="password" name="password"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit"> Entrar </button>
+    <button ion-button block type="submit" [disabled]="!formLogin.valid"> Entrar </button>
     </form>
+    <!-- <button ion-button block (click)="signInWithFacebook()">Facebook</button> -->
 </ion-content>
-
+        
 <ion-footer>
   <ion-navbar>
     <ion-title center (click)="goToRegister()">Crear nueva cuenta</ion-title>

@@ -3,12 +3,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {FormControl} from '@angular/forms';
 
-/*
-  Generated class for the ValidateEmail provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class ValidatePassword {
 
@@ -17,7 +11,8 @@ export class ValidatePassword {
   isValid(control:FormControl){
         if(control.value == control.root.value['password']){
             return null;
-        }else
+        }
+        else
         return { isValid:true };
  } 
 
