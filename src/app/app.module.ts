@@ -10,6 +10,7 @@ import { RegisterPage } from '../pages/register/register';
 import { ValidateEmail } from '../providers/validate-email';
 import { ValidatePassword } from '../providers/validate-password';
 import { AuthService } from '../providers/auth-service';
+import { Camera } from '@ionic-native/camera'
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD-RRTe73zQqZNGrkREKudOGnEwnXiAbaQ",
@@ -41,6 +42,6 @@ export const firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, ValidateEmail, ValidatePassword, AuthService]
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, ValidateEmail, ValidatePassword, AuthService, Camera]
 })
 export class AppModule {}

@@ -5,4 +5,22 @@ page-register {
         color: darkgoldenrod;
     }
 
+    .camera {
+        width:20%;
+        height:50%; 
+        background-color:transparent; 
+        .icon{
+            font-size:5em;
+        }     
+    }
+
+
+   .img {
+    max-width: 100%;
+    height: auto;
+    border-radius:20px;
+    background-color:transparent;
+    }
+
+
 }
