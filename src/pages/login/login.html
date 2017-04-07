@@ -1,7 +1,7 @@
 
 <ion-content padding>
   <form [formGroup]="formLogin" (ngSubmit)="doLogin()" no-validate>
-    <ion-list>
+    <ion-list no-lines>
       <ion-item>
         <ion-input formControlName="femail" placeholder="Correo" type="email" [(ngModel)]="email" name="email"></ion-input>
       </ion-item>

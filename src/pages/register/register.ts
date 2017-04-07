@@ -69,7 +69,7 @@ const options: CameraOptions = {
 this.camera.getPicture(options).then((imageData) => {
  this.base64Image = 'data:image/jpeg;base64,' + imageData;
 }, (err) => {
- this.presentAlert("Camara","Ha fallado la camara");
+
 });
 
 }
@@ -97,8 +97,8 @@ this.camera.getPicture(options).then((imageData) => {
               }]});
           alert.present();
         });
-        this.formRegister.reset();
-      });
+        this.navCtrl.setRoot(RegisterPage);
+      });;
       this.loading = this.loadingCtrl.create({ dismissOnPageChange: true, });
       this.loading.present();
     }

@@ -8,6 +8,7 @@ page-register {
     .camera {
         width:20%;
         height:50%; 
+        margin-left:20px;
         background-color:transparent; 
         .icon{
             font-size:5em;
@@ -18,9 +19,12 @@ page-register {
    .img {
     max-width: 100%;
     height: auto;
-    border-radius:20px;
+    margin-left:10%;
+    border-radius:10%;
     background-color:transparent;
     }
+    
+   
 
 
 }
