@@ -66,7 +66,7 @@ presentAlert(titulo: string,mensaje: string) {
     }
     Camera.getPicture( options )
     .then(imageData => {
-      this.image = `data:image/jpeg;base64,${imageData}`;
+      this.image = 'data:image/jpeg;base64,${imageData}';
     })
     .catch(error =>{
       this.presentAlert("Camara","Ha ocurrido un error en la camara");
@@ -77,13 +77,6 @@ presentAlert(titulo: string,mensaje: string) {
 /* ================= FUNCIONES ====================== */
 
   doRegister(){
-    this.submitAttempt = true;
-    if(!this.formRegister.valid)
-    {
-      this.presentAlert('Registro','Rellene los campos correctamente');
-    }
-    else
-    {
      this.authService.register(this.formRegister.value.email, this.formRegister.value.password)
      .then( authService => { this.navCtrl.setRoot(LoginPage);}, error => {
         this.loading.dismiss().then( () => {
@@ -99,8 +92,7 @@ presentAlert(titulo: string,mensaje: string) {
         this.navCtrl.setRoot(RegisterPage);
       });;
       this.loading = this.loadingCtrl.create({ dismissOnPageChange: true, });
-      this.loading.present();
-    }
+      this.loading.present(); 
   }
 
   saveUser(){
