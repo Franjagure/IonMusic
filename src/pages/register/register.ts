@@ -5,8 +5,7 @@ import { LoginPage } from '../login/login';
 import { ValidateEmail } from '../../providers/validate-email';
 import { ValidatePassword } from '../../providers/validate-password'; 
 import { AuthService } from '../../providers/auth-service';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { Camera } from 'ionic-native';
 
 @Component({
   selector: 'page-register',
@@ -18,7 +17,7 @@ export class RegisterPage {
   formRegister: FormGroup;
   submitAttempt: boolean = false;
   loading: any;
-  base64Image: any;
+  image: string = 'http://www.wolves.co.uk/images/common/bg_player_profile_default_big.png';
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -27,8 +26,7 @@ export class RegisterPage {
               public loadingCtrl: LoadingController,
               public ValidateEmail: ValidateEmail,
               public ValidatePassword: ValidatePassword,
-              public authService: AuthService,
-              public camera: Camera) {
+              public authService: AuthService) {
   
   this.formRegister = this.formBuilder.group({
      username: ['',Validators.compose([Validators.maxLength(10), Validators.pattern('[a-zA-Z ]*'),Validators.required])],
@@ -58,21 +56,22 @@ presentAlert(titulo: string,mensaje: string) {
   alert.present();
 }
 
-getPicture(){
-const options: CameraOptions = {
-  quality: 100,
-  destinationType: this.camera.DestinationType.DATA_URL,
-  encodingType: this.camera.EncodingType.JPEG,
-  mediaType: this.camera.MediaType.PICTURE
- }
 
-this.camera.getPicture(options).then((imageData) => {
- this.base64Image = 'data:image/jpeg;base64,' + imageData;
-}, (err) => {
-
-});
-
-}
+  getPicture(){
+    let options = {
+      destinationType: Camera.DestinationType.DATA_URL,
+      targetWidth: 1000,
+      targetHeight: 1000,
+      quality: 100
+    }
+    Camera.getPicture( options )
+    .then(imageData => {
+      this.image = `data:image/jpeg;base64,${imageData}`;
+    })
+    .catch(error =>{
+      this.presentAlert("Camara","Ha ocurrido un error en la camara");
+    });
+  }
 
 
 /* ================= FUNCIONES ====================== */

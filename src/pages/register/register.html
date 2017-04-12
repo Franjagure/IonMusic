@@ -39,11 +39,15 @@
       <ion-item *ngIf="!formRegister.controls.password2.valid && (formRegister.controls.password2.dirty || submitAttempt)">
         <p style="color:dodgerblue; font-size:0,5em;">Debe ser la misma clave</p>
     </ion-item> 
+    <div [hidden]="!formRegister.valid">
      <ion-item>
-         <button class="camera" (click)="getPicture()" ><ion-icon name="ios-camera" class="icon"></ion-icon></button>
-         <button class="camera"><ion-icon name="image" class="icon"></ion-icon></button>
-         <ion-img class="img" [src]="base64Image" *ngIf="base64Image"></ion-img>
+         <button ion-button block round default [color]="primary" icon-right (click)="getPicture()"><ion-icon name="ios-camera" class="foto"></ion-icon>Foto de perfil</button>
+         <!-- <button class="camera"><ion-icon name="image" class="icon"></ion-icon></button>   -->
       </ion-item>
+      <ion-item>
+        <img class="img" [src]="image" alt="image" *ngIf="image">
+      </ion-item>
+    </div>
       <button round light outline ion-button block type="submit" [disabled]="!formRegister.valid"> Registrar </button>
     </ion-list>
     </form>

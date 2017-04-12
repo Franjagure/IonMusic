@@ -5,26 +5,23 @@ page-register {
         color: darkgoldenrod;
     }
 
-    .camera {
-        width:20%;
-        height:50%; 
-        margin-left:20px;
-        background-color:transparent; 
-        .icon{
-            font-size:5em;
+        .foto{
+            font-size:3em;
+            display:block;
+            margin-left: auto;
+            margin-right: auto
         }     
-    }
-
-
-   .img {
-    max-width: 100%;
-    height: auto;
-    margin-left:10%;
-    border-radius:10%;
-    background-color:transparent;
-    }
     
-   
 
 
+
+    img {
+        border: 3px groove dodgerblue;
+        border-radius:20%;
+        width:50%;
+        height:30%;
+          display: block;
+    margin-left: auto;
+    margin-right: auto
+    }
 }
