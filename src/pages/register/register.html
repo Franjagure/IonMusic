@@ -1,55 +1,45 @@
 
 <ion-header>
-
   <ion-navbar>
     <ion-title>Nueva cuenta</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="register">
   <form [formGroup]="formRegister" padding (ngSubmit)="doRegister()" no-validate>
     <ion-list no-lines>
       <ion-item>
-        <ion-label floating> Nombre de usuario </ion-label>
-        <ion-input formControlName="username" type="text" [(ngModel)]="newUser.username" ></ion-input>
+        <ion-input formControlName="username" type="text" placeholder="Nombre usuario" [(ngModel)]="newUser.username" ></ion-input>
       </ion-item>
       <ion-item *ngIf="!formRegister.controls.username.valid && (formRegister.controls.username.dirty || submitAttempt)">
-        <p style="color:dodgerblue; font-size:0,5em;">Introduzca un nombre válido</p>
+        <p>Introduzca un nombre válido</p>
       </ion-item>
        <ion-item>
-         <ion-label floating> Email </ion-label>
-        <ion-input formControlName="email" [(ngModel)]="newUser.email" ></ion-input>
+        <ion-input formControlName="email" placeholder="Email" [(ngModel)]="newUser.email" ></ion-input>
       </ion-item>
       <ion-item *ngIf="!formRegister.controls.email.valid && (formRegister.controls.email.dirty || submitAttempt)">
-        <p style="color:dodgerblue; font-size:0,5em;">Introduzca un email válido</p>
+        <p>Introduzca un email válido</p>
       </ion-item>
       <ion-item>
-        <ion-label floating> Contraseña </ion-label>
-        <ion-input formControlName="password" type="password"  [(ngModel)]="newUser.password" ></ion-input>
+        <ion-input formControlName="password" type="password" placeholder="Contraseña"  [(ngModel)]="newUser.password" ></ion-input>
       </ion-item>
         <ion-item *ngIf="!formRegister.controls.password.valid && (formRegister.controls.password.dirty || submitAttempt)">
-        <p style="color:dodgerblue; font-size:0,5em;">6 digitos mínimo.</p>
+        <p>6 digitos mínimo.</p>
       </ion-item>
       <ion-item>
-        <ion-label floating> Confirmar contraseña </ion-label>
-        <ion-input  formControlName="password2" type="password"  [(ngModel)]="newUser.password2" ></ion-input>
+        <ion-input  formControlName="password2" type="password" placeholder="Confirmar contraseña"  [(ngModel)]="newUser.password2" ></ion-input>
       </ion-item>
       <ion-item *ngIf="!formRegister.controls.password2.valid && (formRegister.controls.password2.dirty || submitAttempt)">
-        <p style="color:dodgerblue; font-size:0,5em;">Debe ser la misma clave</p>
+        <p>Debe ser la misma clave</p>
     </ion-item> 
-    <div [hidden]="!formRegister.valid">
      <ion-item>
-         <button ion-button block round default [color]="primary" icon-right (click)="getPicture()"><ion-icon name="ios-camera" class="foto"></ion-icon>Foto de perfil</button>
-         <!-- <button class="camera"><ion-icon name="image" class="icon"></ion-icon></button>   -->
+         <button ion-button block default [color]="primary" icon-right (click)="getPicture()"><ion-icon name="ios-camera" class="foto"></ion-icon>Foto de perfil</button>
       </ion-item>
       <ion-item>
         <img class="img" [src]="image" alt="image" *ngIf="image">
       </ion-item>
-    </div>
-      <button round light outline ion-button block type="submit" [disabled]="!formRegister.valid"> Registrar </button>
+      <button ion-button block type="submit" [disabled]="!formRegister.valid"> Registrar </button>
     </ion-list>
-    </form>
-    
+    </form>  
 </ion-content>

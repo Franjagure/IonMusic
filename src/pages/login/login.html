@@ -1,5 +1,5 @@
 
-<ion-content padding>
+<ion-content padding class="login">
   <form [formGroup]="formLogin" (ngSubmit)="doLogin()" no-validate>
     <ion-list no-lines>
       <ion-item>
@@ -9,13 +9,13 @@
         <ion-input formControlName="fpassword" placeholder="Contraseña" type="password" [(ngModel)]="password" name="password"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!formLogin.valid"> Entrar </button>
+    <button ion-button color="light" block round="isRound" type="submit" [disabled]="!formLogin.valid"> Entrar </button>
     </form>
     <!-- <button ion-button block (click)="signInWithFacebook()">Facebook</button> -->
 </ion-content>
         
-<ion-footer>
+<ion-footer class="footer">
   <ion-navbar>
-    <ion-title center (click)="goToRegister()">Crear nueva cuenta</ion-title>
+    <ion-title (click)="goToRegister()">Crear nueva cuenta</ion-title>
   </ion-navbar>
 </ion-footer>

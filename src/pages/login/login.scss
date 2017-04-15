@@ -1,3 +1,35 @@
 page-login {
-
+.login {
+  background-color: #4368b6;
+  ion-img{
+    width: 80%;
+    margin: 40% auto 5px auto;
+    display: block
+  }
+  .item{
+    background-color: rgba(255,255,255,.3);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    &:last-child{
+      margin-bottom: 0px;
+    }
+    .text-input{
+      color: white;
+    }
+  }
+  ::-webkit-input-placeholder{
+    color: white;
+  }
+}
+.footer{
+  .toolbar-background{
+    background-color: rgba(255,255,255,.3);
+  }
+  .toolbar-title{
+    color: white;
+    font-weight: lighter;
+    text-align:center;
+  }
+  
+}
 }

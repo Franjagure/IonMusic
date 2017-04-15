@@ -16,6 +16,7 @@ import { AuthService } from '../../providers/auth-service';
 export class LoginPage {
 
   email: any;
+  loading: any;
   password: any;
   formLogin: FormGroup;
   submitAttempt: boolean = false;
@@ -39,25 +40,22 @@ export class LoginPage {
   /* ============== OPCIONES DE LOGIN =============== */
 
   doLogin() {
-    this.angfire.auth.login({
-      email: this.email,
-      password: this.password
-    },
-      {
-        provider: AuthProviders.Password,
-        method: AuthMethods.Password
-      }).then((response) => {
-        this.presentLoading();
-        console.log('Se ha iniciado sesion correctamente ' + JSON.stringify(response));
-        let currentuser = {
-          email: response.auth.email,
-          picture: response.auth.photoURL
-        };
-        window.localStorage.setItem('currentuser', JSON.stringify(currentuser));
+    this.submitAttempt = true;
+    if (!this.formLogin.valid){
+      console.log(this.formLogin.value);
+    } else {
+      this.auth.doLogin(this.formLogin.value.femail, this.formLogin.value.fpassword).then( authService => {
         this.navCtrl.setRoot(HomePage);
-      }).catch((error) => {
-        this.presentAlert();
+      }, error => {
+        this.loading.dismiss().then( () => {
+          this.presentAlert();
+        });
       });
+      this.loading = this.loadingCtrl.create({
+        dismissOnPageChange: true,
+      });
+      this.loading.present();
+    }
   }
 
   /* ============== COMPONENTES =============== */
