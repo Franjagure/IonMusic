@@ -11,6 +11,9 @@ import { ValidatePassword } from '../providers/validate-password';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { Camera } from '@ionic-native/camera'
 import { AuthService } from '../providers/auth-service';
+import { MenuTabPage } from '../pages/menu-tab/menu-tab';
+import { ProgressBarComponent} from '../components/progress-bar/progress-bar';
+import { BibliotecaPage } from '../pages/biblioteca/biblioteca';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD-RRTe73zQqZNGrkREKudOGnEwnXiAbaQ",
@@ -31,7 +34,11 @@ const myFirebaseAuthConfig = {
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    MenuTabPage,
+    ProgressBarComponent,
+    BibliotecaPage
+
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -42,7 +49,10 @@ const myFirebaseAuthConfig = {
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    MenuTabPage,
+    ProgressBarComponent,
+    BibliotecaPage
   ],
   providers: [
     StatusBar,

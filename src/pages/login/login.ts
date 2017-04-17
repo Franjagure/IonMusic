@@ -6,6 +6,7 @@ import { HomePage } from '../home/home';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateEmail } from '../../providers/validate-email';
 import { AuthService } from '../../providers/auth-service';
+import { MenuTabPage } from '../menu-tab/menu-tab';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class LoginPage {
       console.log(this.formLogin.value);
     } else {
       this.auth.doLogin(this.formLogin.value.femail, this.formLogin.value.fpassword).then( authService => {
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(MenuTabPage);
       }, error => {
         this.loading.dismiss().then( () => {
           this.presentAlert();

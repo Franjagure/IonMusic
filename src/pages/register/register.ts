@@ -78,7 +78,7 @@ export class RegisterPage {
     if (!this.formRegister.valid) {
       console.log(this.formRegister.value);
     } else {
-      this.authService.register(this.formRegister.value.email, this.formRegister.value.password).then(authService => {
+      this.authService.register(this.formRegister.value.email, this.formRegister.value.password,this.image,this.formRegister.value.username).then(authService => {
         this.navCtrl.setRoot(LoginPage);
         this.presentAlert("Registro","Se ha creado la cuenta");
       }, error => {

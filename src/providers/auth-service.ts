@@ -16,10 +16,10 @@ export class AuthService {
   return this.fireAuth.signInWithEmailAndPassword(email, password);
 }
 
-  register(email: string, password: string): any {
+  register(email: string, password: string, photo: string, username: string): any {
   return this.fireAuth.createUserWithEmailAndPassword(email, password)
     .then((newUser) => {
-      this.userData.child(newUser.uid).set({email: email});
+      this.userData.child(newUser.uid).set({email: email, photo:photo, username: username});
     });
     
 }
