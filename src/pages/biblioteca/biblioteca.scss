@@ -1,5 +1,56 @@
 page-biblioteca {
 .biblioteca {
   background-color: #4368b6;
-}
+     $song-card-height: 50px;
+ 
+        ion-list {
+            margin-bottom: $song-card-height + 20px;
+            .alternate {
+                background-color: map-get($colors, secondary);
+            }
+            .playing {
+                background-color: map-get($colors, dark);
+                img {
+                    opacity: 0.4;
+                }
+            }
+        }
+ 
+        ion-avatar {
+            position: relative;
+        }
+ 
+        ion-spinner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 4px !important;         
+        }
+ 
+        [ion-item] {
+            background-color: map-get($colors, primary);
+            padding: 20px;
+        }
+ 
+        ion-card {
+            text-align:center;
+            background-color: map-get($colors, light);
+            opacity: 0.9;
+            height: $song-card-height;
+            bottom: 0;
+        }
+ 
+        .reproductor {
+            height: 75px;
+            background-color: map-get($colors, dark);
+            ion-grid, ion-row, ion-col {
+                height: 100%;
+            }
+            ion-col {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+  }
 }

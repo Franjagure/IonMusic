@@ -32,12 +32,12 @@
       </ion-item>
       <ion-item *ngIf="!formRegister.controls.password2.valid && (formRegister.controls.password2.dirty || submitAttempt)">
         <p>Debe ser la misma clave</p>
-    </ion-item> 
-     <ion-item>
-         <button ion-button block default [color]="primary" icon-right (click)="getPicture()"><ion-icon name="ios-camera" class="foto"></ion-icon>Foto de perfil</button>
-      </ion-item>
+    </ion-item>  
       <ion-item>
         <img class="img" [src]="image" alt="image" *ngIf="image">
+      </ion-item>
+      <ion-item>
+         <button ion-button block default [color]="primary" icon-right (click)="getPicture()"><ion-icon name="ios-camera" class="foto"></ion-icon>Foto de perfil</button>
       </ion-item>
       <button ion-button block type="submit" [disabled]="!formRegister.valid"> Registrar </button>
     </ion-list>

@@ -8,7 +8,7 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ValidateEmail } from '../providers/validate-email';
 import { ValidatePassword } from '../providers/validate-password';
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods,FirebaseApp } from 'angularfire2';
 import { Camera } from '@ionic-native/camera'
 import { AuthService } from '../providers/auth-service';
 import { MenuTabPage } from '../pages/menu-tab/menu-tab';
@@ -52,7 +52,7 @@ const myFirebaseAuthConfig = {
     RegisterPage,
     MenuTabPage,
     ProgressBarComponent,
-    BibliotecaPage
+    BibliotecaPage,
   ],
   providers: [
     StatusBar,

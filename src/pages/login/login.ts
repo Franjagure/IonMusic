@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
-import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
-import { HomePage } from '../home/home';
+import { AngularFire } from 'angularfire2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateEmail } from '../../providers/validate-email';
 import { AuthService } from '../../providers/auth-service';
