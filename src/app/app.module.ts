@@ -14,6 +14,7 @@ import { AuthService } from '../providers/auth-service';
 import { MenuTabPage } from '../pages/menu-tab/menu-tab';
 import { ProgressBarComponent} from '../components/progress-bar/progress-bar';
 import { BibliotecaPage } from '../pages/biblioteca/biblioteca';
+import { MediaPlugin } from '@ionic-native/media';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD-RRTe73zQqZNGrkREKudOGnEwnXiAbaQ",
@@ -57,6 +58,6 @@ const myFirebaseAuthConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, ValidateEmail, ValidatePassword, AuthService, Camera]
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, ValidateEmail, ValidatePassword, AuthService, Camera, MediaPlugin]
 })
 export class AppModule {}

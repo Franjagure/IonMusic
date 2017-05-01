@@ -2,7 +2,6 @@ page-biblioteca {
 .biblioteca {
   background-color: #4368b6;
      $song-card-height: 50px;
- 
         ion-list {
             margin-bottom: $song-card-height + 20px;
             .alternate {
@@ -15,7 +14,7 @@ page-biblioteca {
                 }
             }
         }
- 
+
         ion-avatar {
             position: relative;
         }
@@ -29,28 +28,13 @@ page-biblioteca {
  
         [ion-item] {
             background-color: map-get($colors, primary);
-            padding: 20px;
-        }
- 
-        ion-card {
-            text-align:center;
-            background-color: map-get($colors, light);
-            opacity: 0.9;
-            height: $song-card-height;
-            bottom: 0;
+            margin-bottom:10px;
+            border-radius:20px;
         }
  
         .reproductor {
-            height: 75px;
-            background-color: map-get($colors, dark);
-            ion-grid, ion-row, ion-col {
-                height: 100%;
-            }
-            ion-col {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+                    width: 100%;
+                    
         }
   }
 }

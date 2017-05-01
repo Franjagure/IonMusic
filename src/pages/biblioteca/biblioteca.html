@@ -16,7 +16,7 @@
 
 <ion-content fullscreen padding class="biblioteca">
  <ion-list no-lines>
-    <button detail-none ion-item *ngFor="let track of tracks; let i = index;" >
+    <button ion-item *ngFor="let track of tracks; let i = index;" (click)="playTrack(track)" >
             <ion-avatar item-left>
                 <img src="{{track.image}}">
             </ion-avatar>
@@ -25,23 +25,17 @@
             <p> {{track.genero}} - {{track.duracion}} </p>
         </button>
   </ion-list>
-
- <!-- div class="reproductor">
-  <ion-grid>
-    <ion-row>
-      <ion-col width="33">
-        <button (click)="prevTrack()" color="light" clear ion-button icon-only><ion-icon name="skip-backward-outline"></ion-icon></button>
-      </ion-col>
-      <ion-col width="33">
-        <button *ngIf="!currentTrack.playing" (click)="playTrack(currentTrack)" color="light" clear ion-button icon-only><ion-icon name="play-outline"></ion-icon></button>
-        <button *ngIf="currentTrack.playing" (click)="pauseTrack(currentTrack)" color="light" clear ion-button icon-only><ion-icon name="pause-outline"></ion-icon></button>
-      </ion-col>
-      <ion-col width="33">
-        <button (click)="nextTrack()" color="light" clear ion-button icon-only><ion-icon name="skip-forward-outline"></ion-icon></button>
-      </ion-col>
-    </ion-row>
+ 
+  <div class="mediaPlayer">
+  <ion-grid >
+    <ion-col width="50">
+      <button ion-button color="light" icon-only><ion-icon name="play-outline"></ion-icon></button>
+    </ion-col>
+      <ion-col  width="50">
+      <button ion-button color="light" icon-only><ion-icon name="pause-outline"></ion-icon></button>
+    </ion-col>
   </ion-grid>
   </div>
- -->
-  <progress-bar [progress]="currentTrack.progress"></progress-bar> 
+ 
+  <!--<progress-bar [progress]="currentTrack.progress"></progress-bar> -->
 </ion-content>
