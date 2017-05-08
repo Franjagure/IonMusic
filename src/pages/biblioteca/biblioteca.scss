@@ -1,40 +1,13 @@
 page-biblioteca {
 .biblioteca {
   background-color: #4368b6;
-     $song-card-height: 50px;
-        ion-list {
-            margin-bottom: $song-card-height + 20px;
-            .alternate {
-                background-color: map-get($colors, secondary);
-            }
-            .playing {
-                background-color: map-get($colors, dark);
-                img {
-                    opacity: 0.4;
-                }
-            }
-        }
-
-        ion-avatar {
-            position: relative;
-        }
- 
-        ion-spinner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            margin: 4px !important;         
-        }
- 
-        [ion-item] {
-            background-color: map-get($colors, primary);
-            margin-bottom:10px;
-            border-radius:20px;
-        }
- 
-        .reproductor {
-                    width: 100%;
-                    
-        }
+  
+    ion-item {
+        color: white;
+        background-color: #BBDEFB;
+        border-radius: 20px;
+        border: solid 2px white;
+    }
   }
 }
+

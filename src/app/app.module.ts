@@ -8,13 +8,14 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ValidateEmail } from '../providers/validate-email';
 import { ValidatePassword } from '../providers/validate-password';
-import { AngularFireModule, AuthProviders, AuthMethods,FirebaseApp } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods} from 'angularfire2';
 import { Camera } from '@ionic-native/camera'
 import { AuthService } from '../providers/auth-service';
 import { MenuTabPage } from '../pages/menu-tab/menu-tab';
 import { ProgressBarComponent} from '../components/progress-bar/progress-bar';
 import { BibliotecaPage } from '../pages/biblioteca/biblioteca';
 import { MediaPlugin } from '@ionic-native/media';
+import { IonicAudioModule } from 'ionic-audio';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD-RRTe73zQqZNGrkREKudOGnEwnXiAbaQ",
@@ -42,8 +43,9 @@ const myFirebaseAuthConfig = {
 
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig,myFirebaseAuthConfig)
+    IonicModule.forRoot(MyApp, {tabsPlacement: 'top'}),
+    AngularFireModule.initializeApp(firebaseConfig,myFirebaseAuthConfig),
+    IonicAudioModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
