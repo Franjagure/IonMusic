@@ -73,6 +73,11 @@ export class BibliotecaPage {
     this.allTracks = this._audioProvider.tracks;
   }
 
+  stop(){
+   
+    
+  }
+
   stopTrack(){
     console.log(this._audioProvider.current); 
   }

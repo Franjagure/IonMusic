@@ -12,9 +12,9 @@
 
   <audio-track #audio *ngFor="let track of myTracks" [track]="track" (onFinish)="onTrackFinished($event)">
     <ion-item>
-      <ion-thumbnail item-left (onClick)="stopTrack()">
-        <img src="{{audio.art}}">
-        <audio-track-play [audioTrack]="audio">
+      <ion-thumbnail item-left (click)="stop()">
+        <img src="{{audio.art}}" >
+        <audio-track-play [audioTrack]="audio" >
           <ion-spinner></ion-spinner>
         </audio-track-play>
       </ion-thumbnail>
