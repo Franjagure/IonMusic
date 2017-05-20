@@ -1,4 +1,5 @@
 page-biblioteca {
+
 .biblioteca {
   background-color: #4368b6;
   
@@ -7,6 +8,13 @@ page-biblioteca {
         background-color: #BBDEFB;
         border-radius: 20px;
         border: solid 2px white;
+        margin-bottom:10px;       
+    }
+
+    .progress-bar{
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
     }
   }
 }
