@@ -1,8 +1,9 @@
 import { Component, Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, AlertController } from 'ionic-angular';
 import { AudioProvider } from 'ionic-audio';
 import 'rxjs/add/operator/map';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-biblioteca',
@@ -24,7 +25,10 @@ export class BibliotecaPage {
   //NAVBAR
   searchBar: string = '';
 
-  constructor(public af: AngularFire, public loadingCtrl: LoadingController, public _audioProvider: AudioProvider) { }
+  //SOCIAL
+  username: any;
+
+  constructor(public af: AngularFire, public loadingCtrl: LoadingController, public _audioProvider: AudioProvider, public alertCtrl: AlertController) { }
 
   //////////////////////NAVBAR
 
@@ -35,14 +39,30 @@ export class BibliotecaPage {
 
   onInput() {
     this.myTracks = this.myAllTracks;
-    console.log("todas las canciones",this.myTracks);
-      //this.myTracksFilter = this.myAllTracks;
-      this.myTracks = this.myTracks.filter((element => {
-        return (element.title.toLowerCase().indexOf(this.searchBar.toLowerCase()) > -1);
-      }));
-      console.log("canciones filtradas",this.myTracks);
-      console.log("busqueda",this.searchBar);
+    console.log("todas las canciones", this.myTracks);
+    //this.myTracksFilter = this.myAllTracks;
+    this.myTracks = this.myTracks.filter((element => {
+      return (element.title.toLowerCase().indexOf(this.searchBar.toLowerCase()) > -1);
+    }));
+    console.log("canciones filtradas", this.myTracks);
+    console.log("busqueda", this.searchBar);
   }
+
+  /////////////////////SOCIAL OPTIONS
+  addLibrary(track) {
+    firebase.database().ref('userData/' + this.af.auth.getAuth().uid+"/playlist/"+track.title).set(track).then((funciona) => {
+      this.showAlertFav();
+    });
+  }
+
+showAlertFav() {
+  let alert = this.alertCtrl.create({
+    title: 'Añadir a tu playlist',
+    subTitle: 'Se ha añadido a tu lista de reproducción',
+    buttons: ['Aceptar']
+  });
+  alert.present();
+}
 
 
   //////////////////////TRACK MANAGER
@@ -51,17 +71,18 @@ export class BibliotecaPage {
     this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
       this.canciones = this.af.database.list('/audios', { preserveSnapshot: true });
-      this.canciones.subscribe(snapshots => {
+      this.canciones.subscribe(lista=> {
         this.loading.dismiss();
-        snapshots.forEach(snapshot => {
+        lista.forEach(song => {
           this.myTracks.push({
-            "art": snapshot.val().art,
-            "artist": snapshot.val().artist,
-            "preload": snapshot.val().preload,
-            "src": snapshot.val().src,
-            "title": snapshot.val().title,
-            "gender": snapshot.val().gender,
-            "time": snapshot.val().duration
+            "art": song.val().art,
+            "artist": song.val().artist,
+            "preload": song.val().preload,
+            "src": song.val().src,
+            "title": song.val().title,
+            "gender": song.val().gender,
+            "time": song.val().duration,
+            "view": song.val().view
           })
         });
       })
@@ -73,14 +94,6 @@ export class BibliotecaPage {
     this.allTracks = this._audioProvider.tracks;
   }
 
-  stop(){
-   
-    
-  }
-
-  stopTrack(){
-    console.log(this._audioProvider.current); 
-  }
 
   showLoading(loadingCtrl: LoadingController) {
     this.loading = this.loadingCtrl.create({
@@ -89,16 +102,8 @@ export class BibliotecaPage {
     this.loading.present();
   }
 
-  playTrack(track) {
-    this._audioProvider.stop(this.currentTrack);
-    this._audioProvider.play(track);
-    
-    console.log("actual",this.currentTrack);
-  }
-
-  pauseTrack(track) {
-    this._audioProvider.stop(track);
-
+  onTrackFinished(track: any) {
+    console.log('Track finished', track)
   }
 
 }

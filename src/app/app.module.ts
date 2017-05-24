@@ -16,6 +16,7 @@ import { ProgressBarComponent} from '../components/progress-bar/progress-bar';
 import { BibliotecaPage } from '../pages/biblioteca/biblioteca';
 import { MediaPlugin } from '@ionic-native/media';
 import { IonicAudioModule } from 'ionic-audio';
+import { PlaylistPage  } from '../pages/playlist/playlist';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD-RRTe73zQqZNGrkREKudOGnEwnXiAbaQ",
@@ -39,7 +40,8 @@ const myFirebaseAuthConfig = {
     RegisterPage,
     MenuTabPage,
     ProgressBarComponent,
-    BibliotecaPage
+    BibliotecaPage,
+    PlaylistPage 
 
   ],
   imports: [
@@ -56,6 +58,7 @@ const myFirebaseAuthConfig = {
     MenuTabPage,
     ProgressBarComponent,
     BibliotecaPage,
+    PlaylistPage 
   ],
   providers: [
     StatusBar,

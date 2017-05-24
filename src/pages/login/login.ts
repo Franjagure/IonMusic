@@ -41,44 +41,74 @@ export class LoginPage {
 
   doLogin() {
     this.submitAttempt = true;
-    if (!this.formLogin.valid){
+    if (!this.formLogin.valid) {
       console.log(this.formLogin.value);
     } else {
-      this.auth.doLogin(this.formLogin.value.femail, this.formLogin.value.fpassword).then( authService => {
-        this.navCtrl.setRoot(MenuTabPage);
-      }, error => {
-        this.loading.dismiss().then( () => {
-          this.presentAlert();
-        });
-      });
+      this.auth.doLogin(this.formLogin.value.femail, this.formLogin.value.fpassword)
+        .then((authService) => {
+          this.loading.dismiss().then(() => {
+            this.navCtrl.setRoot(MenuTabPage)
+          })
+        })
+        .catch((error) => {
+          this.loading.dismiss().then(() => {
+            this.messageError(error);
+          })
+        })
       this.loading = this.loadingCtrl.create({
-        dismissOnPageChange: true,
+        content: 'Espere mientras se comunica el sistema...',
+        dismissOnPageChange: true
       });
       this.loading.present();
     }
+
   }
 
   /* ============== COMPONENTES =============== */
 
   presentLoading() {
     let loading = this.loadingCtrl.create({
-      content: 'Usuario identificado, porfavor espere...'
+      content: 'Espere mientras se comunica el sistema...'
     });
-
     loading.present();
-
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1000);
   }
 
-  presentAlert() {
+  presentAlertNotFound() {
     let alert = this.alertCtrl.create({
       title: 'Error',
       subTitle: 'El usuario o la contraseña es incorrecto',
       buttons: ['Aceptar']
     });
     alert.present();
+  }
+
+  presentAlertNotNetwork() {
+    let alert = this.alertCtrl.create({
+      title: 'Error de conexion',
+      subTitle: 'El servicio no puede mantener la conexión',
+      buttons: ['Aceptar']
+    });
+    alert.present();
+  }
+
+  presentAlertLogin() {
+    let alert = this.alertCtrl.create({
+      title: 'Error en el sistema',
+      subTitle: 'Este usuario ya se encuentra conectado',
+      buttons: ['Aceptar']
+    });
+    alert.present();
+  }
+
+  messageError(error) {
+    if (error.code == "auth/user-not-found")
+      this.presentAlertNotFound();
+    if (error.code == "auth/network-request-failed")
+      this.presentAlertNotNetwork();
+    if (error.code == "auth/requires-recent-login")
+      this.presentAlertLogin();
+    if (error.code == "auth/account-exists-with-different-credential")
+      this.presentAlertNotFound();
   }
 
   /* ============== PAGINAS =============== */
