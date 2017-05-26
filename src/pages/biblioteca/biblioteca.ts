@@ -13,6 +13,9 @@ import firebase from 'firebase';
 @Injectable()
 export class BibliotecaPage {
 
+  //Firebase Audios
+
+
   //COMPONENTS
   canciones: FirebaseListObservable<any[]>;
   loading: any;
@@ -40,58 +43,64 @@ export class BibliotecaPage {
   onInput() {
     this.myTracks = this.myAllTracks;
     console.log("todas las canciones", this.myTracks);
-    //this.myTracksFilter = this.myAllTracks;
-    this.myTracks = this.myTracks.filter((element => {
+    this.myTracks.filter((element => {
       return (element.title.toLowerCase().indexOf(this.searchBar.toLowerCase()) > -1);
     }));
-    console.log("canciones filtradas", this.myTracks);
-    console.log("busqueda", this.searchBar);
+
   }
 
   /////////////////////SOCIAL OPTIONS
   addLibrary(track) {
-    firebase.database().ref('userData/' + this.af.auth.getAuth().uid+"/playlist/"+track.title).set(track).then((funciona) => {
+    firebase.database().ref('userData/' + this.af.auth.getAuth().uid + "/playlist/" + track.title).set(track).then((funciona) => {
       this.showAlertFav();
     });
   }
 
-showAlertFav() {
-  let alert = this.alertCtrl.create({
-    title: 'Añadir a tu playlist',
-    subTitle: 'Se ha añadido a tu lista de reproducción',
-    buttons: ['Aceptar']
-  });
-  alert.present();
-}
+  showAlertFav() {
+    let alert = this.alertCtrl.create({
+      title: 'Añadir a tu playlist',
+      subTitle: 'Se ha añadido a tu lista de reproducción',
+      buttons: ['Aceptar']
+    });
+    alert.present();
+  }
 
 
   //////////////////////TRACK MANAGER
+  playSong(track){
+    //Añadir reproducción
+    this.addView(track);
+    //Reproducir canción
+    track.isFinished = true;
+    this._audioProvider.stop(this.currentTrack);
+    this._audioProvider.play(track.id);
+    this.currentTrack = track.id;
+  }
 
   ngOnInit() {
     this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
-      this.canciones = this.af.database.list('/audios', { preserveSnapshot: true });
-      this.canciones.subscribe(lista=> {
-        this.loading.dismiss();
-        lista.forEach(song => {
-          this.myTracks.push({
-            "art": song.val().art,
-            "artist": song.val().artist,
-            "preload": song.val().preload,
-            "src": song.val().src,
-            "title": song.val().title,
-            "gender": song.val().gender,
-            "time": song.val().duration,
-            "view": song.val().view
-          })
+      this.canciones = this.af.database.list('/audios');
+      this.canciones.forEach(lista => {
+        lista.forEach(canciones => {
+          this.myTracks.push(canciones);
         });
-      })
+      });
+      this.loading.dismiss();
     });
     this.myAllTracks = this.myTracks;
+    console.log(this.myTracks);
+    
   }
 
   ngAfterContentInit() {
     this.allTracks = this._audioProvider.tracks;
+  }
+
+  addView(track) {
+    track.view++;
+    //
+    firebase.database().ref('/audios').child(track._id).update({ 'view': track.view });
   }
 
 

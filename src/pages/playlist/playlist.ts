@@ -30,11 +30,8 @@ export class PlaylistPage {
     this.allTracks = this._audioProvider.tracks;
   }
 
-  addView(track: any){
-    console.log(track.view);
-    let nView = track.view+1;
-    firebase.database().ref('audios/'+track.id+'/view/').set(nView);
-    console.log(nView);
+  addView(){
+   
   }
   ngOnInit(){
     this.showLoading(this.loadingCtrl);
