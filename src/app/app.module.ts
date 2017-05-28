@@ -63,6 +63,11 @@ const myFirebaseAuthConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, ValidateEmail, ValidatePassword, AuthService, Camera, MediaPlugin]
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
+    ValidateEmail, 
+    ValidatePassword, 
+    AuthService, 
+    Camera, 
+    MediaPlugin]
 })
 export class AppModule {}

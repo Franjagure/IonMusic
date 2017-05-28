@@ -16,10 +16,10 @@ export class HomePage {
       if (!user) {
         navCtrl.setRoot(LoginPage);
       } else {
-        let userId = firebase.auth().currentUser.uid;
+       /* let userId = firebase.auth().currentUser.uid;
         firebase.database().ref('/userData/' + userId).once('value').then(function (snapshot) {
           let username = snapshot.val().username;
-        });
+        });*/
       }
     });
   }

@@ -19,6 +19,7 @@ export class PlaylistPage {
   loading: any;
   canciones: FirebaseListObservable<any[]>;
   myTracks: any[] = [];
+  currentTrack: any;
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public af: AngularFire, public _audioProvider: AudioProvider) {}
 
@@ -46,6 +47,15 @@ export class PlaylistPage {
     console.log(this.myTracks);
   }
   
+  playSong(track){
+
+    //Reproducir canción
+    track.isFinished = true;
+    this._audioProvider.stop(this.currentTrack);
+    this._audioProvider.play(track.id);
+    this.currentTrack = track.id;
+  }
+
   showLoading(loadingCtrl: LoadingController) {
     this.loading = this.loadingCtrl.create({
       content: 'Cargando biblioteca...'

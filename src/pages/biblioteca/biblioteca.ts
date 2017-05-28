@@ -29,21 +29,19 @@ export class BibliotecaPage {
   searchBar: string = '';
 
   //SOCIAL
-  username: any;
+  like: boolean = false;
 
   constructor(public af: AngularFire, public loadingCtrl: LoadingController, public _audioProvider: AudioProvider, public alertCtrl: AlertController) { }
 
   //////////////////////NAVBAR
-
-
   openMenu() {
 
   }
 
   onInput() {
+
     this.myTracks = this.myAllTracks;
-    console.log("todas las canciones", this.myTracks);
-    this.myTracks.filter((element => {
+    this.myTracks = this.myTracks.filter((element => {
       return (element.title.toLowerCase().indexOf(this.searchBar.toLowerCase()) > -1);
     }));
 
@@ -65,9 +63,25 @@ export class BibliotecaPage {
     alert.present();
   }
 
+  showAlertFacebook() {
+    let alert = this.alertCtrl.create({
+      title: 'Compartir en facebook',
+      subTitle: 'Se ha compartido en facebook',
+      buttons: ['Aceptar']
+    });
+    alert.present();
+  }
+
+  shareFacebook(track) {
+
+  }
+
+  shareTwitter(track) {
+
+  }
 
   //////////////////////TRACK MANAGER
-  playSong(track){
+  playSong(track) {
     //Añadir reproducción
     this.addView(track);
     //Reproducir canción
@@ -90,17 +104,18 @@ export class BibliotecaPage {
     });
     this.myAllTracks = this.myTracks;
     console.log(this.myTracks);
-    
+
   }
 
   ngAfterContentInit() {
     this.allTracks = this._audioProvider.tracks;
   }
 
+
   addView(track) {
     track.view++;
     //
-    firebase.database().ref('/audios').child(track._id).update({ 'view': track.view });
+    //firebase.database().ref('/audios').child(track._id).update({ 'view': track.view });
   }
 
 
