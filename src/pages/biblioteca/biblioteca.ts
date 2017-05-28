@@ -31,7 +31,7 @@ export class BibliotecaPage {
   //SOCIAL
   like: boolean = false;
 
-  constructor(public af: AngularFire, public loadingCtrl: LoadingController, public _audioProvider: AudioProvider, public alertCtrl: AlertController) { }
+  constructor( public af: AngularFire, public loadingCtrl: LoadingController, public _audioProvider: AudioProvider, public alertCtrl: AlertController) { }
 
   //////////////////////NAVBAR
   openMenu() {
@@ -63,25 +63,16 @@ export class BibliotecaPage {
     alert.present();
   }
 
-  showAlertFacebook() {
-    let alert = this.alertCtrl.create({
-      title: 'Compartir en facebook',
-      subTitle: 'Se ha compartido en facebook',
-      buttons: ['Aceptar']
-    });
-    alert.present();
-  }
-
-  shareFacebook(track) {
+  shareFacebook(track){
 
   }
 
-  shareTwitter(track) {
+  shareTwitter(track){
 
   }
 
   //////////////////////TRACK MANAGER
-  playSong(track) {
+  playSong(track){
     //Añadir reproducción
     this.addView(track);
     //Reproducir canción
@@ -104,7 +95,7 @@ export class BibliotecaPage {
     });
     this.myAllTracks = this.myTracks;
     console.log(this.myTracks);
-
+    
   }
 
   ngAfterContentInit() {

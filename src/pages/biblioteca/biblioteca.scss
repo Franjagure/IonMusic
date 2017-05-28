@@ -2,7 +2,7 @@ page-biblioteca {
 
 .biblioteca {
   background-color: #4368b6;
-  
+
     ion-item {
         background-color: rgba(255,255,255,.3);
         border-radius: 20px;
@@ -13,28 +13,37 @@ page-biblioteca {
           border: solid 1px white;
         }
 
-        p {
-          color:white;
+        b{
+          font-size:22px;
+        }
+
+        em{
+          font-size:17px;
         }
 
         ion-icon {
-          margin-right:20px;
-          font-size:30px;
+          font-size:15px;
+          color:#4368b6;
+          
+          .addPlaylist{
+            font-size:25px;
+            color:white;
+          }
+
+        }
+
+        label{
+          font-size:15px;
+          margin-right:5px;
+        }
+
+        .social-buttons{
+          position: relative;
         }
 
     }
 
-    .progress-bar{
-      border: solid 5px #BBDEFB;
-      border-radius:15px;
-      position: absolute;
-      bottom: 10px;
-      width:90%;
-      padding:5px;
-      font-size:20px;
-      background:white;
-      color:#4368b6;
-    }
+    
   }
 }
 
