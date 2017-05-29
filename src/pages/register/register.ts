@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginPage } from '../login/login';
 import { ValidateEmail } from '../../providers/validate-email';
@@ -26,7 +26,8 @@ export class RegisterPage {
     public loadingCtrl: LoadingController,
     public ValidateEmail: ValidateEmail,
     public ValidatePassword: ValidatePassword,
-    public authService: AuthService) {
+    public authService: AuthService,
+    public menuCtrl: MenuController) {
 
     this.formRegister = this.formBuilder.group({
       username: ['', Validators.compose([Validators.maxLength(10), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
@@ -46,6 +47,15 @@ export class RegisterPage {
     loader.present();
   }
 
+ ionViewDidEnter() {
+    //to disable menu, or
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    // to enable menu.
+    this.menuCtrl.enable(true);
+}
 
   presentAlert(titulo: string, mensaje: string) {
     let alert = this.alertCtrl.create({

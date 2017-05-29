@@ -1,1 +1,17 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu  side="left" [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Perfil</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="side-menu">
+    <div class="photo">
+        <img src="https://www.tuexperto.com/wp-content/uploads/2015/07/perfil_01.jpg">
+        <p><b>@Franjagure</b></p>
+        <p><em>{{user}}</em></p>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -1,6 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { LoadingController, AlertController } from 'ionic-angular';
+import { LoadingController, AlertController, MenuController, NavController } from 'ionic-angular';
 import { AudioProvider } from 'ionic-audio';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
@@ -12,8 +12,6 @@ import firebase from 'firebase';
 
 @Injectable()
 export class BibliotecaPage {
-
-  //Firebase Audios
 
 
   //COMPONENTS
@@ -27,16 +25,20 @@ export class BibliotecaPage {
 
   //NAVBAR
   searchBar: string = '';
-
   //SOCIAL
   like: boolean = false;
 
-  constructor( public af: AngularFire, public loadingCtrl: LoadingController, public _audioProvider: AudioProvider, public alertCtrl: AlertController) { }
+  constructor(public af: AngularFire, 
+              public loadingCtrl: LoadingController, 
+              public _audioProvider: AudioProvider, 
+              public alertCtrl: AlertController,
+              public nav: NavController,
+              public menuCtrl: MenuController) { }
 
   //////////////////////NAVBAR
-  openMenu() {
-
-  }
+openMenu(){
+  this.menuCtrl.open();
+}
 
   onInput() {
 

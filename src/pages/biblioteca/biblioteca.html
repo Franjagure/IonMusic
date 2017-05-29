@@ -1,13 +1,15 @@
+<!-- HEADER -->
 <ion-header>
-  <ion-navbar>
-     <ion-title>
+  <ion-toolbar>
+    <button icon-only end><ion-icon name="menu"></ion-icon></button>
+    <ion-title>
       Biblioteca
     </ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openMenu()"><ion-icon name="options"></ion-icon></button>
-    </ion-buttons>
-  </ion-navbar>
+</ion-toolbar>
 </ion-header>
+
+
+<!-- CONTENT -->
 <ion-content fullscreen padding class="biblioteca">
   <ion-searchbar class="searchbar" [(ngModel)]="searchBar" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" placeholder="Titulo"></ion-searchbar>
   <audio-track #audio *ngFor="let track of myTracks; let i = index;" [track]="track" (onFinish)="onTrackFinished($event)">
@@ -21,12 +23,14 @@
             <b>{{audio.title}}</b>
           </ion-row>
           <ion-row>
-            <em> {{audio.artist}} </em> 
+            <em> {{audio.artist}} </em>
           </ion-row>
           <ion-row>
             <div class="social-buttons">
-              <label>{{track.view}}</label><ion-icon name="eye"></ion-icon>
-              <label>{{track.gender}}</label><ion-icon name="headset"></ion-icon>
+              <label>{{track.view}}</label>
+              <ion-icon name="eye"></ion-icon>
+              <label>{{track.gender}}</label>
+              <ion-icon name="headset"></ion-icon>
               <ion-icon style="font-size:30px;margin-left:20px;color:white" name="add-circle" (click)="addLibrary(track)"></ion-icon>
             </div>
           </ion-row>
@@ -40,6 +44,7 @@
     </ion-item>
   </audio-track>
 </ion-content>
+
+<!-- FOOTER -->
 <ion-footer>
-  
 </ion-footer>

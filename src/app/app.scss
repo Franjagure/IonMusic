@@ -14,3 +14,30 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.side-menu {
+background-color:#4368b6;
+}
+
+
+.photo {
+    text-align:center;
+    margin-top:20px;
+
+    img{
+        height:150px;
+        width:150px;
+        border-radius:80px;
+        border:5px solid white;
+    }
+
+    b {
+        color:white;
+        font-size:30px;
+        font-style:bold;
+    }
+
+    em {
+        color:white;
+    }
+}

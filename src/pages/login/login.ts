@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 import { AngularFire } from 'angularfire2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateEmail } from '../../providers/validate-email';
 import { AuthService } from '../../providers/auth-service';
 import { MenuTabPage } from '../menu-tab/menu-tab';
+import firebase from 'firebase';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class LoginPage {
     public ValidateEmail: ValidateEmail,
     public auth: AuthService,
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public menuCtrl: MenuController) {
 
     this.formLogin = this.formBuilder.group({
       femail: ['', Validators.compose([Validators.required, ValidateEmail.isValid])],
@@ -47,7 +49,7 @@ export class LoginPage {
       this.auth.doLogin(this.formLogin.value.femail, this.formLogin.value.fpassword)
         .then((authService) => {
           this.loading.dismiss().then(() => {
-            this.navCtrl.setRoot(MenuTabPage)
+            this.navCtrl.setRoot(MenuTabPage);
           })
         })
         .catch((error) => {
@@ -66,6 +68,15 @@ export class LoginPage {
 
   /* ============== COMPONENTES =============== */
 
+ ionViewDidEnter() {
+    //to disable menu, or
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    // to enable menu.
+    this.menuCtrl.enable(true);
+}
   presentLoading() {
     let loading = this.loadingCtrl.create({
       content: 'Espere mientras se comunica el sistema...'

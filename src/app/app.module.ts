@@ -41,7 +41,7 @@ const myFirebaseAuthConfig = {
     MenuTabPage,
     ProgressBarComponent,
     BibliotecaPage,
-    PlaylistPage 
+    PlaylistPage
 
   ],
   imports: [
@@ -58,7 +58,7 @@ const myFirebaseAuthConfig = {
     MenuTabPage,
     ProgressBarComponent,
     BibliotecaPage,
-    PlaylistPage 
+    PlaylistPage
   ],
   providers: [
     StatusBar,
