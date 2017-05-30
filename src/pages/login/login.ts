@@ -68,7 +68,7 @@ export class LoginPage {
 
   /* ============== COMPONENTES =============== */
 
- ionViewDidEnter() {
+  ionViewDidEnter() {
     //to disable menu, or
     this.menuCtrl.enable(false);
   }
@@ -76,7 +76,7 @@ export class LoginPage {
   ionViewWillLeave() {
     // to enable menu.
     this.menuCtrl.enable(true);
-}
+  }
   presentLoading() {
     let loading = this.loadingCtrl.create({
       content: 'Espere mientras se comunica el sistema...'
@@ -102,30 +102,31 @@ export class LoginPage {
     alert.present();
   }
 
-  presentAlertLogin() {
-    let alert = this.alertCtrl.create({
-      title: 'Error en el sistema',
-      subTitle: 'Este usuario ya se encuentra conectado',
-      buttons: ['Aceptar']
-    });
-    alert.present();
-  }
 
-  messageError(error) {
-    if (error.code == "auth/user-not-found")
-      this.presentAlertNotFound();
-    if (error.code == "auth/network-request-failed")
-      this.presentAlertNotNetwork();
-    if (error.code == "auth/requires-recent-login")
-      this.presentAlertLogin();
-    if (error.code == "auth/account-exists-with-different-credential")
-      this.presentAlertNotFound();
-  }
+presentAlertLogin() {
+  let alert = this.alertCtrl.create({
+    title: 'Error en el sistema',
+    subTitle: 'Este usuario ya se encuentra conectado',
+    buttons: ['Aceptar']
+  });
+  alert.present();
+}
 
-  /* ============== PAGINAS =============== */
+messageError(error) {
+  if (error.code == "auth/user-not-found")
+    this.presentAlertNotFound();
+  if (error.code == "auth/network-request-failed")
+    this.presentAlertNotNetwork();
+  if (error.code == "auth/requires-recent-login")
+    this.presentAlertLogin();
+  if (error.code == "auth/account-exists-with-different-credential")
+    this.presentAlertNotFound();
+}
 
-  goToRegister() {
-    this.navCtrl.push(RegisterPage);
-  }
+/* ============== PAGINAS =============== */
+
+goToRegister() {
+  this.navCtrl.push(RegisterPage);
+}
 
 }

@@ -1,25 +1,17 @@
 <!-- HEADER -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Biblioteca</ion-title>
-    <ion-buttons end>
-      <button ion-button>
-        <ion-icon name="ion-arrow-up-b" (click)="openMenu()"></ion-icon>
-      </button>
-      <button ion-button>
-        <ion-icon name="ion-arrow-down-b" (click)="openMenu()"></ion-icon>
-      </button>
-      <button ion-button>
-      <ion-icon name="star" (click)="openMenu()"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title center>Biblioteca</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <!-- CONTENT -->
 <ion-content fullscreen padding class="biblioteca">
-  <ion-searchbar class="searchbar" [(ngModel)]="searchBar" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" placeholder="Titulo"></ion-searchbar>
+  <div class="toolbar">
+    <ion-searchbar class="searchbar" [(ngModel)]="searchBar" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" placeholder="Titulo"></ion-searchbar> 
+    <ion-icon name="options" style="font-size:40px;" (click)="presentAlertFilter()"></ion-icon>
+  </div>
   <audio-track #audio *ngFor="let track of myTracks; let i = index;" [track]="track" (onFinish)="onTrackFinished($event)">
     <ion-item>
       <ion-thumbnail item-left>

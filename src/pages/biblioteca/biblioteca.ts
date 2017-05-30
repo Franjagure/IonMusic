@@ -38,10 +38,58 @@ export class BibliotecaPage {
               public menuCtrl: MenuController) { }
 
   //////////////////////NAVBAR
-openMenu(){
-  this.menuCtrl.open();
+  presentAlertFilter() {
+    let alert = this.alertCtrl.create({
+      title: 'Filtro de canciones',
+      message: 'Selecciona el tipo de filtro',
+      inputs: [
+        { type: 'radio', label: 'Mas populares', value:'filter1'},
+        { type: 'radio', label: 'Titulo', value:'filter2'},
+        { type: 'radio', label: 'Mas recientes / Mas antigüas', value:'filter3'}
+      ],
+      buttons: [
+        { text: 'Cancelar', role: 'cancel', 
+          handler: data  => { 
+         console.log("cancelar",data) 
+        }
+      },
+      {
+        text: 'Confirmar',
+        handler: data => {
+          this.filtrarCanciones(data);
+        }
+      }
+    ]
+    });
+   alert.present();
+}
+ OrderByArray(values: any[], orderType: any) { 
+    return values.sort((a, b) => {
+        if (a[orderType] < b[orderType]) {
+            return -1;
+        }
+        if (a[orderType] > b[orderType]) {
+            return 1;
+        }
+        return 0
+    });
 }
 
+  filtrarCanciones(filter: any){
+
+    switch(filter){
+      case "filter1":
+            this.OrderByArray(this.myTracks.reverse(),"view");
+            break;
+      case "filter2": 
+            this.OrderByArray(this.myTracks,"title");
+            break;
+      case "filter3": 
+            this.myTracks = this.myAllTracks;
+            this.myTracks = this.myTracks.reverse();    
+            break;
+    }
+  }
   onInput() {
 
     this.myTracks = this.myAllTracks;
@@ -67,16 +115,10 @@ openMenu(){
     alert.present();
   }
 
-  shareFacebook(track){
-
-  }
-
-  shareTwitter(track){
-
-  }
 
   //////////////////////TRACK MANAGER
   playSong(track){
+      //console.log(this.OrderByArray(this.myTracks,"title").map(item => item.title));
     //Añadir reproducción
     this.addView(track);
     //Reproducir canción
@@ -115,6 +157,7 @@ openMenu(){
 
   ngAfterContentInit() {
     this.allTracks = this._audioProvider.tracks;
+
   }
 
 
