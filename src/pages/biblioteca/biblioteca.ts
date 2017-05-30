@@ -15,6 +15,7 @@ export class BibliotecaPage {
 
 
   //COMPONENTS
+  subCanciones: any;
   canciones: FirebaseListObservable<any[]>;
   loading: any;
   allTracks: any[];
@@ -25,6 +26,7 @@ export class BibliotecaPage {
 
   //NAVBAR
   searchBar: string = '';
+
   //SOCIAL
   like: boolean = false;
 
@@ -85,7 +87,18 @@ openMenu(){
   }
 
   ngOnInit() {
-    this.showLoading(this.loadingCtrl);
+     this.showLoading(this.loadingCtrl);
+    this.loading.present().then(() => {
+      this.canciones = this.af.database.list('/audios');
+      this.subCanciones = this.canciones.subscribe((lista) => {
+        lista.forEach(canciones => {
+          this.myTracks.push(canciones);
+        })
+        this.loading.dismiss();
+      })  
+    });
+    this.myAllTracks = this.myTracks;  
+    /*this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
       this.canciones = this.af.database.list('/audios');
       this.canciones.forEach(lista => {
@@ -96,7 +109,7 @@ openMenu(){
       this.loading.dismiss();
     });
     this.myAllTracks = this.myTracks;
-    console.log(this.myTracks);
+    console.log(this.myTracks);*/
     
   }
 
@@ -106,9 +119,9 @@ openMenu(){
 
 
   addView(track) {
+   this.subCanciones.unsubscribe(); 
     track.view++;
-    //
-    //firebase.database().ref('/audios').child(track._id).update({ 'view': track.view });
+    firebase.database().ref('/audios').child(track._id).update({ 'view': track.view });
   }
 
 
