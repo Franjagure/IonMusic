@@ -1,25 +1,36 @@
 page-playlist {
 .playlist {
   background-color: #4368b6;
-  
-    ion-item {
-        color: white;
-        background-color: #BBDEFB;
-        border-radius: 20px;
-        border: solid 2px white;
-        margin-bottom:10px;       
+
+    .items{
+      width:100%;
+      color:white;
     }
 
-    .progress-bar{
-      border: solid 5px #BBDEFB;
-      border-radius:15px;
-      position: absolute;
-      bottom: 10px;
-      width:90%;
-      padding:5px;
-      font-size:20px;
-      background:white;
-      color:#4368b6;
-    }
-  }
+    ion-item {
+        background-color: rgba(255,255,255,.3);
+        border-radius: 20px;
+        border: solid 2px white;
+        margin-bottom:10px;     
+
+        b{
+          color:white;
+          font-size:20px;
+        }  
+
+        em{
+          color:white;
+          font-size:12px;
+        }  
+
+        ion-thumbnail{
+
+            b{
+              font-size:20px;
+              text-align:center;
+              color:#4368b6;
+            }
+           }
+          }
+         }
 }

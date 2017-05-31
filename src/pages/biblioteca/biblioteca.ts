@@ -30,12 +30,12 @@ export class BibliotecaPage {
   //SOCIAL
   like: boolean = false;
 
-  constructor(public af: AngularFire, 
-              public loadingCtrl: LoadingController, 
-              public _audioProvider: AudioProvider, 
-              public alertCtrl: AlertController,
-              public nav: NavController,
-              public menuCtrl: MenuController) { }
+  constructor(public af: AngularFire,
+    public loadingCtrl: LoadingController,
+    public _audioProvider: AudioProvider,
+    public alertCtrl: AlertController,
+    public nav: NavController,
+    public menuCtrl: MenuController) { }
 
   //////////////////////NAVBAR
   presentAlertFilter() {
@@ -43,51 +43,56 @@ export class BibliotecaPage {
       title: 'Filtro de canciones',
       message: 'Selecciona el tipo de filtro',
       inputs: [
-        { type: 'radio', label: 'Mas populares', value:'filter1'},
-        { type: 'radio', label: 'Titulo', value:'filter2'},
-        { type: 'radio', label: 'Mas recientes / Mas antigüas', value:'filter3'}
+        { type: 'radio', label: 'Mas populares', value: 'filter1' },
+        { type: 'radio', label: 'Titulo', value: 'filter2' },
+        { type: 'radio', label: 'Mas recientes / Mas antigüas', value: 'filter3' }
       ],
       buttons: [
-        { text: 'Cancelar', role: 'cancel', 
-          handler: data  => { 
-         console.log("cancelar",data) 
+        {
+          text: 'Cancelar', role: 'cancel',
+          handler: data => {
+            console.log("cancelar", data)
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: data => {
+            console.log(data);
+            this.filtrarCanciones(data);
+          }
         }
-      },
-      {
-        text: 'Confirmar',
-        handler: data => {
-          this.filtrarCanciones(data);
-        }
-      }
-    ]
+      ]
     });
-   alert.present();
-}
- OrderByArray(values: any[], orderType: any) { 
+    alert.present();
+  }
+
+
+  OrderByArray(values: any[], orderType: any) {
     return values.sort((a, b) => {
-        if (a[orderType] < b[orderType]) {
-            return -1;
-        }
-        if (a[orderType] > b[orderType]) {
-            return 1;
-        }
-        return 0
+      if (a[orderType] < b[orderType]) {
+        return -1;
+      }
+      if (a[orderType] > b[orderType]) {
+        return 1;
+      }
+      return 0
     });
-}
+  }
 
-  filtrarCanciones(filter: any){
+  filtrarCanciones(filter: any) {
 
-    switch(filter){
+    switch (filter) {
       case "filter1":
-            this.OrderByArray(this.myTracks.reverse(),"view");
-            break;
-      case "filter2": 
-            this.OrderByArray(this.myTracks,"title");
-            break;
-      case "filter3": 
-            this.myTracks = this.myAllTracks;
-            this.myTracks = this.myTracks.reverse();    
-            break;
+        this.OrderByArray(this.myTracks, "view");
+        this.myTracks.reverse();
+        break;
+      case "filter2":
+        this.OrderByArray(this.myTracks, "title");
+        break;
+      case "filter3":
+        this.myTracks = this.myAllTracks;
+        this.myTracks = this.myTracks.reverse();
+        break;
     }
   }
   onInput() {
@@ -117,8 +122,8 @@ export class BibliotecaPage {
 
 
   //////////////////////TRACK MANAGER
-  playSong(track){
-      //console.log(this.OrderByArray(this.myTracks,"title").map(item => item.title));
+  playSong(track) {
+    //console.log(this.OrderByArray(this.myTracks,"title").map(item => item.title));
     //Añadir reproducción
     this.addView(track);
     //Reproducir canción
@@ -129,40 +134,35 @@ export class BibliotecaPage {
   }
 
   ngOnInit() {
-     this.showLoading(this.loadingCtrl);
+    this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
       this.canciones = this.af.database.list('/audios');
       this.subCanciones = this.canciones.subscribe((lista) => {
         lista.forEach(canciones => {
-          this.myTracks.push(canciones);
+          if(this.pushUnique(canciones._id)){
+              this.myTracks.push(canciones);
+          }        
         })
         this.loading.dismiss();
-      })  
-    });
-    this.myAllTracks = this.myTracks;  
-    /*this.showLoading(this.loadingCtrl);
-    this.loading.present().then(() => {
-      this.canciones = this.af.database.list('/audios');
-      this.canciones.forEach(lista => {
-        lista.forEach(canciones => {
-          this.myTracks.push(canciones);
-        });
-      });
-      this.loading.dismiss();
+        this.subCanciones.unsubscribe();
+      })
     });
     this.myAllTracks = this.myTracks;
-    console.log(this.myTracks);*/
-    
   }
+
+  pushUnique(item){
+    if((this.myTracks.indexOf(x => x._id === item)) == -1) {
+    //if(jQuery.inArray(item, this) == -1) {
+        return true;
+    }
+    return false;
+}
 
   ngAfterContentInit() {
     this.allTracks = this._audioProvider.tracks;
-
   }
 
-
   addView(track) {
-   this.subCanciones.unsubscribe(); 
     track.view++;
     firebase.database().ref('/audios').child(track._id).update({ 'view': track.view });
   }

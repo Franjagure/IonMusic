@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AudioProvider } from 'ionic-audio';
 import firebase from 'firebase';
@@ -15,13 +15,19 @@ import firebase from 'firebase';
   templateUrl: 'playlist.html'
 })
 export class PlaylistPage {
+
+  subCanciones: any;
   allTracks: any[] = [];
   loading: any;
   canciones: FirebaseListObservable<any[]>;
   myTracks: any[] = [];
   currentTrack: any;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public af: AngularFire, public _audioProvider: AudioProvider) {}
+  constructor(public navCtrl: NavController, 
+              public loadingCtrl: LoadingController, 
+              public af: AngularFire, 
+              public _audioProvider: AudioProvider,
+              public alertCtrl: AlertController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlaylistPage');
@@ -38,14 +44,14 @@ export class PlaylistPage {
     this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
       this.canciones = this.af.database.list('userData/'+this.af.auth.getAuth().uid+"/playlist");
-      this.canciones.subscribe((track) => {
+      this.subCanciones = this.canciones.subscribe((track) => {
         this.loading.dismiss();
-        console.log(track);
         this.myTracks = track;
       })
     })
-    console.log(this.myTracks);
   }
+
+ 
   
   playSong(track){
 
@@ -63,6 +69,25 @@ export class PlaylistPage {
     this.loading.present();
   }
 
+  borrarCancion(track){
+    let alert = this.alertCtrl.create({
+      title: 'Borrar canción',
+      message: '¿Quieres borrar esta canción de tu playlist?',
+      buttons: [
+        {
+          text: 'Cancelar', role: 'cancel',
+          handler: data => {}
+        },
+        {
+          text: 'Confirmar',
+          handler: data => {
+            firebase.database().ref('userData/' + this.af.auth.getAuth().uid + "/playlist/").child(track.title).remove();     
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
   onTrackFinished(track: any) {
     console.log('Track finished', track)
   }
