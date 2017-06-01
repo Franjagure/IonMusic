@@ -33,7 +33,7 @@ export class HomePage {
   ngOnInit() {
     this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
-      this.canciones = this.af.database.list('userData/' + this.af.auth.getAuth().uid + "/playlist");
+      this.canciones = this.af.database.list('/audios');
       this.subCanciones = this.canciones.subscribe((track) => {
         this.loading.dismiss();
         track.forEach(element => {
@@ -41,12 +41,18 @@ export class HomePage {
             this.myTracks.push(element);
         });
       })
-    })
+      /// POPULARES 
+      this.mostPopular = this.myTracks;
+      this.filtrarCanciones("popular");
 
-    /// POPULARES 
-    this.myTracks = this.mostPopular;
-    
-    
+      /// NOVEDADES
+      this.mostRecent = this.myTracks;
+      this.mostRecent = this.mostRecent.reverse();
+      //this.filtrarCanciones("novedades");
+
+      console.log("populares -> ", this.mostPopular);
+      console.log("novedades ->", this.mostRecent);
+    })
   }
 
   ngAfterContentInit() {
@@ -79,20 +85,17 @@ export class HomePage {
 
   filtrarCanciones(filter: any) {
     switch (filter) {
-      case "filter1":
+      case "popular":
         this.OrderByArray(this.mostPopular, "view");
-        this.myTracks.reverse();
+        //this.mostPopular.reverse();
         break;
-      case "filter2":
-        this.OrderByArray(this.myTracks, "title");
-        break;
-      case "filter3":
-        this.myTracks = this.myAllTracks;
-        this.myTracks = this.myTracks.reverse();
+
+      case "novedades":
+        this.mostRecent = this.mostRecent.reverse();
         break;
     }
   }
-  
+
 
 
 

@@ -94,7 +94,7 @@ export class BibliotecaPage {
         break;
     }
   }
-  
+
   onInput() {
 
     this.myTracks = this.myAllTracks;
@@ -143,7 +143,7 @@ export class BibliotecaPage {
           this.myTracks.push(canciones);
         })
         this.loading.dismiss();
-        this.subCanciones.unsubscribe();
+        //this.subCanciones.unsubscribe();
       })
     });
     this.myAllTracks = this.myTracks;
