@@ -80,7 +80,6 @@ export class BibliotecaPage {
   }
 
   filtrarCanciones(filter: any) {
-
     switch (filter) {
       case "filter1":
         this.OrderByArray(this.myTracks, "view");
@@ -95,6 +94,7 @@ export class BibliotecaPage {
         break;
     }
   }
+  
   onInput() {
 
     this.myTracks = this.myAllTracks;
@@ -139,9 +139,8 @@ export class BibliotecaPage {
       this.canciones = this.af.database.list('/audios');
       this.subCanciones = this.canciones.subscribe((lista) => {
         lista.forEach(canciones => {
-          if(this.pushUnique(canciones._id)){
-              this.myTracks.push(canciones);
-          }        
+          if(this.checkTrack(canciones)==undefined)
+          this.myTracks.push(canciones);
         })
         this.loading.dismiss();
         this.subCanciones.unsubscribe();
@@ -150,13 +149,10 @@ export class BibliotecaPage {
     this.myAllTracks = this.myTracks;
   }
 
-  pushUnique(item){
-    if((this.myTracks.indexOf(x => x._id === item)) == -1) {
-    //if(jQuery.inArray(item, this) == -1) {
-        return true;
-    }
-    return false;
-}
+checkTrack(canciones: any) {
+    let encontrado = this.myTracks.find(x => x._id == canciones._id);
+    return encontrado;
+ }
 
   ngAfterContentInit() {
     this.allTracks = this._audioProvider.tracks;

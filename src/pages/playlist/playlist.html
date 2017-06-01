@@ -12,14 +12,14 @@
 
 <ion-content fullscreen padding class="playlist">
   <audio-track #audio *ngFor="let track of myTracks; let i = index;" [track]="track" (onFinish)="onTrackFinished($event)">
-    <ion-item (press)="borrarCancion(track)">
-      <div item-content style="width:100%">
+    <ion-item (press)="borrarCancion(track,i)">
+      <div item-content style="width:100%;color:white;">
         <ion-grid>
           <ion-row>
             <ion-col>
-              <p><b>{{i}} - {{audio.title}}</b></p>
+              <p><b>{{i+1}} - {{audio.title}}</b></p>
               <p><em>{{audio.artist}}</em></p>
-              <p><audio-track-progress-bar duration progress [audioTrack]="audio" [ngStyle]="{visibility: audio.isPlaying == true ? 'visible' : 'hidden'}"></audio-track-progress-bar></p>
+              <p><b><audio-track-progress-bar duration progress [audioTrack]="audio" [ngStyle]="{visibility: audio.isPlaying == true ? 'visible' : 'hidden'}"></audio-track-progress-bar></b></p>
             </ion-col>
             <ion-col col-3>
               <ion-thumbnail>

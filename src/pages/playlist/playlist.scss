@@ -24,13 +24,18 @@ page-playlist {
         }  
 
         ion-thumbnail{
-
             b{
               font-size:20px;
               text-align:center;
               color:#4368b6;
             }
            }
+
+        .progress-bar{
+          color:white;
+          font-size:10px;
+          font-style:bold;
+        }
           }
          }
 }

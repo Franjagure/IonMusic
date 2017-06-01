@@ -40,18 +40,25 @@ export class PlaylistPage {
   addView(){
    
   }
+
   ngOnInit(){
     this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
       this.canciones = this.af.database.list('userData/'+this.af.auth.getAuth().uid+"/playlist");
       this.subCanciones = this.canciones.subscribe((track) => {
         this.loading.dismiss();
-        this.myTracks = track;
+        track.forEach(element => {
+          if(this.checkTrack(element)==undefined)
+          this.myTracks.push(element);
+        });      
       })
     })
   }
 
- 
+ checkTrack(canciones: any) {
+    let encontrado = this.myTracks.find(x => x._id == canciones._id);
+    return encontrado;
+ }
   
   playSong(track){
 
@@ -69,7 +76,7 @@ export class PlaylistPage {
     this.loading.present();
   }
 
-  borrarCancion(track){
+  borrarCancion(track,index){
     let alert = this.alertCtrl.create({
       title: 'Borrar canción',
       message: '¿Quieres borrar esta canción de tu playlist?',
@@ -81,7 +88,13 @@ export class PlaylistPage {
         {
           text: 'Confirmar',
           handler: data => {
-            firebase.database().ref('userData/' + this.af.auth.getAuth().uid + "/playlist/").child(track.title).remove();     
+            if(this.currentTrack == track.id){
+            track.isFinished = true;
+            this._audioProvider.stop(track.id); 
+            }   
+            firebase.database().ref('userData/' + this.af.auth.getAuth().uid + "/playlist/").child(track.title).remove(); 
+            this.myTracks.splice(index,1);
+            console.log(index);
           }
         }
       ]
