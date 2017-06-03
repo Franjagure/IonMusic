@@ -1,4 +1,4 @@
-<ion-menu  side="left" [content]="content">
+<ion-menu  side="left" [content]="content" (ionOpen)="loadProfile()">
   <ion-header>
     <ion-toolbar>
       <ion-title>Perfil</ion-title>
@@ -6,9 +6,14 @@
   </ion-header>
   <ion-content class="side-menu">
     <div class="photo">
-        <img src="https://www.tuexperto.com/wp-content/uploads/2015/07/perfil_01.jpg">
-        <p><b>@Franjagure</b></p>
-        <p><em>{{user}}</em></p>
+        <img src="{{_photo}}">
+        <p><b>@{{_username}}</b></p>
+        <p><em>{{_email}}</em></p>
+    </div>
+
+    <div class="options">
+      <button ion-button color="danger" (click)="logOut()">Desconectar</button>
+      <button ion-button (click)="showInfo()">Acerca de...</button>
     </div>
   </ion-content>
 </ion-menu>

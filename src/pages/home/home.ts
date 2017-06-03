@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, AlertController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AudioProvider } from 'ionic-audio';
-import firebase from 'firebase';
-import { Slides } from 'ionic-angular';
+
 
 
 @Component({
@@ -12,9 +11,12 @@ import { Slides } from 'ionic-angular';
 })
 export class HomePage {
 
+  _userData: any[] = [];
   subCanciones: any;
+  subUserData: any;
   allTracks: any[] = [];
   loading: any;
+  userdata:  FirebaseListObservable<any[]>;
   canciones: FirebaseListObservable<any[]>;
   myTracks: any[] = [];
   currentTrack: any;
@@ -63,6 +65,8 @@ export class HomePage {
     let encontrado = this.myTracks.find(x => x._id == canciones._id);
     return encontrado;
   }
+
+
 
   showLoading(loadingCtrl: LoadingController) {
     this.loading = this.loadingCtrl.create({

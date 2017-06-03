@@ -19,7 +19,6 @@
 background-color:#4368b6;
 }
 
-
 .photo {
     text-align:center;
     margin-top:20px;
@@ -39,5 +38,13 @@ background-color:#4368b6;
 
     em {
         color:white;
+    }    
+}
+
+.options { 
+    margin-top:30%;
+    text-align: center;
+    button {
+        margin-top:5%;
     }
 }

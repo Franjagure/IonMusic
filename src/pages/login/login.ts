@@ -6,7 +6,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateEmail } from '../../providers/validate-email';
 import { AuthService } from '../../providers/auth-service';
 import { MenuTabPage } from '../menu-tab/menu-tab';
-import firebase from 'firebase';
 
 
 @Component({
