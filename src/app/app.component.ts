@@ -62,7 +62,7 @@ export class MyApp {
 
   logOut(){
     var nav = this.app.getActiveNav();
-    nav.push(LoginPage);
+    nav.parent.parent.setRoot(LoginPage);
     this._auth.doLogout();
     
     

@@ -1,11 +1,17 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+        Inicio
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="home">
-  <p>{{username}}</p>
+ <ion-slides>
+  <ion-slide *ngFor="let popular of mostPopular; let i = index;"></ion-slide>
+  <img src="{{popular.art}}"> 
+  </ion-slides> 
+  
+
+
 </ion-content>

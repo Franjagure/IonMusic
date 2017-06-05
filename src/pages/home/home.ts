@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { NavController, LoadingController, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, LoadingController, Slides } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AudioProvider } from 'ionic-audio';
+
 
 
 
@@ -16,7 +17,7 @@ export class HomePage {
   subUserData: any;
   allTracks: any[] = [];
   loading: any;
-  userdata:  FirebaseListObservable<any[]>;
+  userdata: FirebaseListObservable<any[]>;
   canciones: FirebaseListObservable<any[]>;
   myTracks: any[] = [];
   currentTrack: any;
@@ -39,23 +40,19 @@ export class HomePage {
       this.subCanciones = this.canciones.subscribe((track) => {
         this.loading.dismiss();
         track.forEach(element => {
-          if (this.checkTrack(element) == undefined)
+          if (this.checkTrack(element) == undefined) {
             this.myTracks.push(element);
+            this.mostPopular.push(element);
+            this.mostRecent.push(element);
+          }
         });
       })
-      /// POPULARES 
-      this.mostPopular = this.myTracks;
+      console.log(this.mostPopular);
       this.filtrarCanciones("popular");
-
-      /// NOVEDADES
-      this.mostRecent = this.myTracks;
-      this.mostRecent = this.mostRecent.reverse();
-      //this.filtrarCanciones("novedades");
-
-      console.log("populares -> ", this.mostPopular);
-      console.log("novedades ->", this.mostRecent);
+      this.filtrarCanciones("novedades");
     })
   }
+
 
   ngAfterContentInit() {
     this.allTracks = this._audioProvider.tracks;
@@ -91,7 +88,7 @@ export class HomePage {
     switch (filter) {
       case "popular":
         this.OrderByArray(this.mostPopular, "view");
-        //this.mostPopular.reverse();
+        this.mostPopular.reverse();
         break;
 
       case "novedades":
