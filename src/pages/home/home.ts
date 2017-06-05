@@ -1,10 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, LoadingController, Slides } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, LoadingController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AudioProvider } from 'ionic-audio';
-
-
-
+import { BibliotecaPage } from '../biblioteca/biblioteca';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-home',
@@ -24,6 +23,16 @@ export class HomePage {
   myAllTracks: any[] = [];
   mostPopular: any[] = [];
   mostRecent: any[] = [];
+  popTracks: any[] = [];
+  latinoTracks: any[] = [];
+  electroTracks: any[] = [];
+  rockTracks: any[] = [];
+  stoorage: any;
+  //GENEROS
+  btnPop: boolean = false;
+  btnRock: boolean = false;
+  btnElectro: boolean = false;
+  btnLatino: boolean = false;
 
 
   constructor(public navCtrl: NavController,
@@ -44,17 +53,20 @@ export class HomePage {
             this.myTracks.push(element);
             this.mostPopular.push(element);
             this.mostRecent.push(element);
+            this.popTracks.push(element);
+            this.rockTracks.push(element);
+            this.electroTracks.push(element);
+            this.latinoTracks.push(element);
           }
         });
       })
-      console.log(this.mostPopular);
       this.filtrarCanciones("popular");
       this.filtrarCanciones("novedades");
+      this.stoorage = firebase.storage().ref();
     })
   }
 
-
-  ngAfterContentInit() {
+  ngAfterViewInit() {
     this.allTracks = this._audioProvider.tracks;
   }
 
@@ -63,7 +75,29 @@ export class HomePage {
     return encontrado;
   }
 
+  generoTrackPop() {
+    this.popTracks = this.popTracks.filter((element => {
+      return (element.gender == "Pop");
+    }))
+  }
 
+  generoTrackRock() {
+    this.rockTracks = this.rockTracks.filter((element => {
+      return (element.gender == "Rock");
+    }))
+  }
+
+  generoTrackLatino() {
+    this.latinoTracks = this.latinoTracks.filter((element => {
+      return (element.gender == "Latino");
+    }))
+  }
+
+  generoTrackElectro() {
+    this.electroTracks = this.electroTracks.filter((element => {
+      return (element.gender == "Electrónica");
+    }))
+  }
 
   showLoading(loadingCtrl: LoadingController) {
     this.loading = this.loadingCtrl.create({
@@ -82,6 +116,47 @@ export class HomePage {
       }
       return 0
     });
+  }
+
+  filterPop(genero) {
+    switch (genero) {
+
+      case "Pop":
+        this.generoTrackPop();
+        this.btnPop = true;
+        this.btnElectro = false;
+        this.btnLatino = false;
+        this.btnRock = false;
+        break;
+
+      case "Rock":
+        this.generoTrackRock();
+        this.btnPop = false;
+        this.btnElectro = false;
+        this.btnLatino = false;
+        this.btnRock = true;
+        break;
+
+      case "Latino":
+        this.generoTrackLatino();
+        this.btnPop = false;
+        this.btnElectro = false;
+        this.btnLatino = true;
+        this.btnRock = false;
+        break;
+
+      case "Electrónica":
+        this.generoTrackElectro();
+        this.btnPop = false;
+        this.btnElectro = true;
+        this.btnLatino = false;
+        this.btnRock = false;
+
+    }
+  }
+
+  visualizarTrack(track){
+    this.navCtrl.setRoot(BibliotecaPage,{cancion: track});
   }
 
   filtrarCanciones(filter: any) {

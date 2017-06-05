@@ -1,17 +1,63 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-        Inicio
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content class="home">
 
-<ion-content padding class="home">
- <ion-slides>
-  <ion-slide *ngFor="let popular of mostPopular; let i = index;"></ion-slide>
-  <img src="{{popular.art}}"> 
-  </ion-slides> 
-  
+  <!-- POPULARES -->
+  <p>TOP 10 POPULARES</p>
+  <div class="section">
+    <ion-slides slidesPerView="3" autoplay="1000" loop="true" speed="2000" *ngIf="mostPopular.length > 1">
+      <ion-slide *ngFor="let popular of mostPopular; let i = index;">
+        <p>{{i+1}}</p><img src="{{popular.art}}" (click)="visualizarTrack(popular.title)">
+      </ion-slide>
+    </ion-slides>
+    <ion-slides *ngIf="mostPopular.length < 2">
+      <ion-slide *ngFor="let popular of mostPopular">
+        <img src="{{popular.art}}" (click)="visualizarTrack(popular.title)">
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <!-- NOVEDADES -->
+
+  <p>NOVEDADES</p>
+  <div class="section">
+    <br>
+    <ion-slides slidesPerView="3" autoplay="1000" loop="true" speed="2000" *ngIf="mostRecent.length > 1">
+      <ion-slide *ngFor="let recent of mostRecent; let i = index;">
+        <img src="{{recent.art}}" (click)="visualizarTrack(recent.title)">
+      </ion-slide>
+    </ion-slides>
+    <ion-slides *ngIf="mostRecent.length < 2">
+      <ion-slide *ngFor="let recent of mostRecent">
+        <img src="{{recent.art}}" (click)="visualizarTrack(recent.title)">
+      </ion-slide>
+    </ion-slides><br>
+  </div>
+
+  <!-- GENEROS MUSICALES -->
+  <p>GENEROS MUSICALES</p>
+  <ion-grid>
+    <ion-row>
+        <button ion-button (click)="filterPop('Pop')">POP</button>
+        <button ion-button (click)="filterPop('Latino')">LATINO</button>
+        <button ion-button (click)="filterPop('Electro')">ELECTRONICA</button>
+        <button ion-button (click)="filterPop('Rock')">ROCK</button>
+    </ion-row>
+    <ion-row>
+      <ion-list>
+        <ion-item (click)="visualizarTrack(pop.title)" style="background-color:transparent;" *ngFor="let pop of popTracks; let i = index;" [hidden]="!btnPop">
+          <em>{{pop.artist}} - {{pop.title}}</em>
+        </ion-item>
+        <ion-item (click)="visualizarTrack(latino.title)" style="background-color:transparent;" *ngFor="let latino of latinoTracks; let i = index;" [hidden]="!btnLatino">
+          <em>{{latino.artist}} - {{latino.title}}</em>
+        </ion-item>
+        <ion-item (click)="visualizarTrack(rock.title)" style="background-color:transparent;" *ngFor="let rock of rockTracks; let i = index;" [hidden]="!btnRock">
+          <em>{{rock.artist}} - {{rock.title}}</em>
+        </ion-item>
+        <ion-item (click)="visualizarTrack(electro.title)" style="background-color:transparent;" *ngFor="let electro of electroTracks; let i = index;" [hidden]="!btnElectro">
+          <em>{{electro.artist}} - {{electro.title}}</em>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+  </ion-grid>
 
 
 </ion-content>

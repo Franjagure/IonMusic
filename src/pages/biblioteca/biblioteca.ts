@@ -1,6 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { LoadingController, AlertController, MenuController, NavController } from 'ionic-angular';
+import { LoadingController, AlertController, MenuController, NavController, NavParams } from 'ionic-angular';
 import { AudioProvider } from 'ionic-audio';
 import 'rxjs/add/operator/map';
 import firebase from 'firebase';
@@ -35,7 +35,8 @@ export class BibliotecaPage {
     public _audioProvider: AudioProvider,
     public alertCtrl: AlertController,
     public nav: NavController,
-    public menuCtrl: MenuController) { }
+    public menuCtrl: MenuController,
+    public navParams: NavParams) { }
 
   //////////////////////NAVBAR
   presentAlertFilter() {
@@ -147,6 +148,9 @@ export class BibliotecaPage {
       })
     });
     this.myAllTracks = this.myTracks;
+    let param = this.navParams.get("cancion");
+    if(param != undefined)
+    this.searchBar = param;
   }
 
 checkTrack(canciones: any) {
