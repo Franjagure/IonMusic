@@ -39,7 +39,7 @@ export class HomePage {
     public loadingCtrl: LoadingController,
     public af: AngularFire,
     public _audioProvider: AudioProvider) {
-
+      let ref = firebase.storage().ref();
   }
 
   ngOnInit() {
@@ -157,6 +157,7 @@ export class HomePage {
 
   visualizarTrack(track){
     this.navCtrl.setRoot(BibliotecaPage,{cancion: track});
+    
   }
 
   filtrarCanciones(filter: any) {
