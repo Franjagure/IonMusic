@@ -145,7 +145,7 @@ export class HomePage {
         this.btnRock = false;
         break;
 
-      case "Electrónica":
+      case "Electro":
         this.generoTrackElectro();
         this.btnPop = false;
         this.btnElectro = true;

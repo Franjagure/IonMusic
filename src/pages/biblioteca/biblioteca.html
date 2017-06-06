@@ -2,7 +2,7 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons end>
-      <button icon-only (click)="presentAlertFilter()"><ion-icon name="options" style="font-size:40px;" ></ion-icon></button>
+      <button ion-button icon-only (click)="presentAlertFilter()"><ion-icon  name="options" style="font-size:40px;" ></ion-icon></button>
     </ion-buttons>
     <ion-searchbar class="searchbar" [(ngModel)]="searchBar" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" placeholder="Titulo"></ion-searchbar>
   </ion-navbar>

@@ -17,6 +17,7 @@ import { BibliotecaPage } from '../pages/biblioteca/biblioteca';
 import { MediaPlugin } from '@ionic-native/media';
 import { IonicAudioModule } from 'ionic-audio';
 import { PlaylistPage  } from '../pages/playlist/playlist';
+import { PasswordPage } from '../pages/password/password';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyD-RRTe73zQqZNGrkREKudOGnEwnXiAbaQ",
@@ -41,7 +42,8 @@ const myFirebaseAuthConfig = {
     MenuTabPage,
     ProgressBarComponent,
     BibliotecaPage,
-    PlaylistPage
+    PlaylistPage,
+    PasswordPage
 
   ],
   imports: [
@@ -58,7 +60,8 @@ const myFirebaseAuthConfig = {
     MenuTabPage,
     ProgressBarComponent,
     BibliotecaPage,
-    PlaylistPage
+    PlaylistPage,
+    PasswordPage
   ],
   providers: [
     StatusBar,

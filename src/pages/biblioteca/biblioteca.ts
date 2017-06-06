@@ -38,7 +38,7 @@ export class BibliotecaPage {
     public menuCtrl: MenuController,
     public navParams: NavParams) { }
 
-  //////////////////////NAVBAR
+/*********** NAVBAR  *************/
   presentAlertFilter() {
     let alert = this.alertCtrl.create({
       title: 'Filtro de canciones',
@@ -105,7 +105,7 @@ export class BibliotecaPage {
 
   }
 
-  /////////////////////SOCIAL OPTIONS
+ /*********** SOCIAL BUTTONS  *************/
   addLibrary(track) {
     firebase.database().ref('userData/' + this.af.auth.getAuth().uid + "/playlist/" + track.title).set(track).then((funciona) => {
       this.showAlertFav();
@@ -121,11 +121,16 @@ export class BibliotecaPage {
     alert.present();
   }
 
+    showLoading(loadingCtrl: LoadingController) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Cargando biblioteca...'
+    });
+    this.loading.present();
+  }
 
-  //////////////////////TRACK MANAGER
+
+  /**************** TRACK BUTTONS  ****************/
   playSong(track) {
-    //console.log(this.OrderByArray(this.myTracks,"title").map(item => item.title));
-    //Añadir reproducción
     this.addView(track);
     //Reproducir canción
     track.isFinished = true;
@@ -165,14 +170,6 @@ checkTrack(canciones: any) {
   addView(track) {
     track.view++;
     firebase.database().ref('/audios').child(track._id).update({ 'view': track.view });
-  }
-
-
-  showLoading(loadingCtrl: LoadingController) {
-    this.loading = this.loadingCtrl.create({
-      content: 'Cargando biblioteca...'
-    });
-    this.loading.present();
   }
 
   onTrackFinished(track: any) {

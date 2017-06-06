@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateEmail } from '../../providers/validate-email';
 import { AuthService } from '../../providers/auth-service';
 import { MenuTabPage } from '../menu-tab/menu-tab';
+import { PasswordPage } from '../password/password';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { MenuTabPage } from '../menu-tab/menu-tab';
 })
 
 export class LoginPage {
-
+  
+  alert: any;
   email: any;
   loading: any;
   password: any;
@@ -41,28 +43,20 @@ export class LoginPage {
   /* ============== OPCIONES DE LOGIN =============== */
 
   doLogin() {
-    this.submitAttempt = true;
-    if (!this.formLogin.valid) {
-      console.log(this.formLogin.value);
-    } else {
-      this.auth.doLogin(this.formLogin.value.femail, this.formLogin.value.fpassword)
-        .then((authService) => {
-          this.loading.dismiss().then(() => {
-            this.navCtrl.setRoot(MenuTabPage);
-          })
+    this.showLoading(this.loadingCtrl);
+    this.loading.present().then(() => {
+    this.auth.doLogin(this.formLogin.value.femail, this.formLogin.value.fpassword)
+      .then((authService) => {
+        this.loading.dismiss().then(() => {
+          this.navCtrl.setRoot(MenuTabPage);
         })
-        .catch((error) => {
-          this.loading.dismiss().then(() => {
-            this.messageError(error);
-          })
+      })
+      .catch((error) => {
+        this.loading.dismiss().then(() => {
+          this.messageError(error);
         })
-      this.loading = this.loadingCtrl.create({
-        content: 'Espere mientras se comunica el sistema...',
-        dismissOnPageChange: true
-      });
-      this.loading.present();
-    }
-
+      })
+    })
   }
 
   /* ============== COMPONENTES =============== */
@@ -76,56 +70,65 @@ export class LoginPage {
     // to enable menu.
     this.menuCtrl.enable(true);
   }
-  presentLoading() {
-    let loading = this.loadingCtrl.create({
-      content: 'Espere mientras se comunica el sistema...'
-    });
-    loading.present();
-  }
+
+/*************** ALERTA DE ERRORES *****************/
 
   presentAlertNotFound() {
-    let alert = this.alertCtrl.create({
+    this.alert = this.alertCtrl.create({
       title: 'Error',
       subTitle: 'El usuario o la contraseña es incorrecto',
       buttons: ['Aceptar']
     });
-    alert.present();
+    this.alert.present();
   }
 
   presentAlertNotNetwork() {
-    let alert = this.alertCtrl.create({
+    this.alert = this.alertCtrl.create({
       title: 'Error de conexion',
       subTitle: 'El servicio no puede mantener la conexión',
       buttons: ['Aceptar']
     });
-    alert.present();
+    this.alert.present();
   }
 
+  presentAlertLogin() {
+    this.alert = this.alertCtrl.create({
+      title: 'Error en el sistema',
+      subTitle: 'Este usuario ya se encuentra conectado',
+      buttons: ['Aceptar']
+    });
+    this.alert.present();
+  }
 
-presentAlertLogin() {
-  let alert = this.alertCtrl.create({
-    title: 'Error en el sistema',
-    subTitle: 'Este usuario ya se encuentra conectado',
-    buttons: ['Aceptar']
-  });
-  alert.present();
-}
+  
+  messageError(error) {
+    if (error.code == "auth/user-not-found")
+      this.presentAlertNotFound();
+    if (error.code == "auth/network-request-failed")
+      this.presentAlertNotNetwork();
+    if (error.code == "auth/requires-recent-login")
+      this.presentAlertLogin();
+    if (error.code == "auth/account-exists-with-different-credential")
+      this.presentAlertNotFound();
+  }
 
-messageError(error) {
-  if (error.code == "auth/user-not-found")
-    this.presentAlertNotFound();
-  if (error.code == "auth/network-request-failed")
-    this.presentAlertNotNetwork();
-  if (error.code == "auth/requires-recent-login")
-    this.presentAlertLogin();
-  if (error.code == "auth/account-exists-with-different-credential")
-    this.presentAlertNotFound();
-}
+/************ LOADING  ******************/
 
-/* ============== PAGINAS =============== */
+  showLoading(loadingCtrl: LoadingController) {
+    this.loading = this.loadingCtrl.create({
+      content: 'Cargando biblioteca...'
+    });
+  }
 
-goToRegister() {
-  this.navCtrl.push(RegisterPage);
-}
+  /* ============== PAGINAS =============== */
+
+  goToRegister() {
+    this.navCtrl.push(RegisterPage);
+  }
+
+  
+  goResetPassword() {
+    this.navCtrl.push(PasswordPage);
+  }
 
 }

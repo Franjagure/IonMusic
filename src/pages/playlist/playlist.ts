@@ -37,10 +37,6 @@ export class PlaylistPage {
     this.allTracks = this._audioProvider.tracks;
   }
 
-  addView(){
-   
-  }
-
   ngOnInit(){
     this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
@@ -101,6 +97,7 @@ export class PlaylistPage {
     });
     alert.present();
   }
+  
   onTrackFinished(track: any) {
     console.log('Track finished', track)
   }

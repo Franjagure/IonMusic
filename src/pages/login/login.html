@@ -11,6 +11,10 @@
     </ion-list>
     <button ion-button color="light" block round="isRound" type="submit" [disabled]="!formLogin.valid"> Entrar </button>
     </form>
+    <br>
+    <div class="resetPassword">
+      <button (click)="goResetPassword()" style="background-color:transparent">¿Quieres recordar la contraseña?</button>
+    </div>
     <!-- <button ion-button block (click)="signInWithFacebook()">Facebook</button> -->
 </ion-content>
         

@@ -33,26 +33,26 @@
   </div>
 
   <!-- GENEROS MUSICALES -->
-  <p>GENEROS MUSICALES</p>
+  <p>TOP GENEROS</p>
   <ion-grid>
     <ion-row>
-        <button ion-button (click)="filterPop('Pop')">POP</button>
-        <button ion-button (click)="filterPop('Latino')">LATINO</button>
-        <button ion-button (click)="filterPop('Electro')">ELECTRONICA</button>
-        <button ion-button (click)="filterPop('Rock')">ROCK</button>
+        <button ion-button color="light" (click)="filterPop('Pop')">POP</button>
+        <button ion-button color="light" (click)="filterPop('Latino')">LATINO</button>
+        <button ion-button color="light" (click)="filterPop('Electro')">ELECTRONICA</button>
+        <button ion-button color="light" (click)="filterPop('Rock')">ROCK</button>
     </ion-row>
-    <ion-row>
-      <ion-list>
-        <ion-item (click)="visualizarTrack(pop.title)" style="background-color:transparent;" *ngFor="let pop of popTracks; let i = index;" [hidden]="!btnPop">
+    <ion-row style="background-color:rgba(255,255,255,.3); border-radius:10px;border: 1px solid white;">
+      <ion-list >
+        <ion-item (click)="visualizarTrack(pop.title)" style="background-color:transparent;" *ngFor="let pop of popTracks | slice:0:4; let i = index;" [hidden]="!btnPop">
           <em>{{pop.artist}} - {{pop.title}}</em>
         </ion-item>
-        <ion-item (click)="visualizarTrack(latino.title)" style="background-color:transparent;" *ngFor="let latino of latinoTracks; let i = index;" [hidden]="!btnLatino">
+        <ion-item (click)="visualizarTrack(latino.title)" style="background-color:transparent;" *ngFor="let latino of latinoTracks | slice:0:4; let i = index;" [hidden]="!btnLatino">
           <em>{{latino.artist}} - {{latino.title}}</em>
         </ion-item>
-        <ion-item (click)="visualizarTrack(rock.title)" style="background-color:transparent;" *ngFor="let rock of rockTracks; let i = index;" [hidden]="!btnRock">
+        <ion-item (click)="visualizarTrack(rock.title)" style="background-color:transparent;" *ngFor="let rock of rockTracks | slice:0:4; let i = index;" [hidden]="!btnRock">
           <em>{{rock.artist}} - {{rock.title}}</em>
         </ion-item>
-        <ion-item (click)="visualizarTrack(electro.title)" style="background-color:transparent;" *ngFor="let electro of electroTracks; let i = index;" [hidden]="!btnElectro">
+        <ion-item (click)="visualizarTrack(electro.title)" style="background-color:transparent;" *ngFor="let electro of electroTracks | slice:0:4; let i = index;" [hidden]="!btnElectro">
           <em>{{electro.artist}} - {{electro.title}}</em>
         </ion-item>
       </ion-list>
