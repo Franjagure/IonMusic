@@ -22,6 +22,7 @@ export class LoginPage {
   password: any;
   formLogin: FormGroup;
   submitAttempt: boolean = false;
+   logo = "src/assets/img/icon.png";
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -102,6 +103,10 @@ export class LoginPage {
 
   
   messageError(error) {
+    if(error.code == "auth/invalid-email")
+      this.presentAlertNotFound();
+    if(error.code == "auth/wrong-password")
+       this.presentAlertNotFound();
     if (error.code == "auth/user-not-found")
       this.presentAlertNotFound();
     if (error.code == "auth/network-request-failed")

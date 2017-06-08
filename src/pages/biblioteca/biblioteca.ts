@@ -23,7 +23,7 @@ export class BibliotecaPage {
   currentTrack: any;
   myTracksFilter: any[] = [];
   myAllTracks: any[] = [];
-
+ 
   //NAVBAR
   searchBar: string = '';
 

@@ -3,7 +3,7 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AudioProvider } from 'ionic-audio';
 import { BibliotecaPage } from '../biblioteca/biblioteca';
-import firebase from 'firebase';
+
 
 @Component({
   selector: 'page-home',
@@ -39,11 +39,7 @@ export class HomePage {
     public loadingCtrl: LoadingController,
     public af: AngularFire,
     public _audioProvider: AudioProvider) {
-      let ref = firebase.storage().ref();
-  }
-
-  ngOnInit() {
-    this.showLoading(this.loadingCtrl);
+      this.showLoading(this.loadingCtrl);
     this.loading.present().then(() => {
       this.canciones = this.af.database.list('/audios');
       this.subCanciones = this.canciones.subscribe((track) => {
@@ -62,8 +58,11 @@ export class HomePage {
       })
       this.filtrarCanciones("popular");
       this.filtrarCanciones("novedades");
-      this.stoorage = firebase.storage().ref();
     })
+  }
+
+  ngOnInit() {
+    
   }
 
   ngAfterViewInit() {

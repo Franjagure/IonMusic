@@ -6,6 +6,7 @@ import { ValidateEmail } from '../../providers/validate-email';
 import { ValidatePassword } from '../../providers/validate-password';
 import { AuthService } from '../../providers/auth-service';
 import { Camera } from 'ionic-native';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-register',
@@ -13,11 +14,21 @@ import { Camera } from 'ionic-native';
 })
 export class RegisterPage {
 
+  //Firebase components
+  filename: any;
+  ref: any;
+  imageRef: any;
+  storageRef: any;
+  ruta: string;
+
+
+  //Variables
+  camara: boolean = false;
   newUser: any = {};
   formRegister: FormGroup;
   submitAttempt: boolean = false;
   loading: any;
-  image: string = 'http://www.wolves.co.uk/images/common/bg_player_profile_default_big.png';
+  photoURL: any = "https://image.freepik.com/iconos-gratis/usuario-masculino-foto-de-perfil_318-37825.jpg";
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -47,7 +58,7 @@ export class RegisterPage {
     loader.present();
   }
 
- ionViewDidEnter() {
+  ionViewDidEnter() {
     //to disable menu, or
     this.menuCtrl.enable(false);
   }
@@ -55,7 +66,7 @@ export class RegisterPage {
   ionViewWillLeave() {
     // to enable menu.
     this.menuCtrl.enable(true);
-}
+  }
 
   presentAlert(titulo: string, mensaje: string) {
     let alert = this.alertCtrl.create({
@@ -69,32 +80,61 @@ export class RegisterPage {
 
   getPicture() {
     let options = {
+      quality: 100,
       destinationType: Camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000,
-      quality: 100
+      encodingType: Camera.EncodingType.JPEG,
+      mediaType: Camera.MediaType.PICTURE,
     }
     Camera.getPicture(options)
-      .then(imageData => {
-        this.image = 'data:image/jpeg;base64,' + imageData;
-      });
+      .then((imageData) => {
+        this.camara = true;
+        this.photoURL = 'data:image/jpeg;base64,' + imageData;
+      }, (error) => {
+
+      })
   }
 
+  messageError(error){
+    switch(error.code){
+      case "auth/email-already-in-use": this.presentAlert("Error", "El email está siendo utilizado");
+                                        break;
+      case "auth/invalid-email": this.presentAlert("Error", "La cuenta de correo no es válida");
+                                 break;
+    }
+  }
+
+  upload() {
+    this.storageRef = firebase.storage().ref();
+    this.filename = Math.floor(Date.now() / 1000);
+    this.imageRef = this.storageRef.child('photos/' + this.filename + '.jpg');
+    this.imageRef.putString(this.photoURL, firebase.storage.StringFormat.DATA_URL);
+    this.ruta = "gs://ionic-2d2c9.appspot.com/photos/"+this.filename+".jpg"
+
+  }
 
   /* ================= FUNCIONES ====================== */
 
   doRegister() {
-    this.submitAttempt = true;
-    if (!this.formRegister.valid) {
-      console.log(this.formRegister.value);
-    } else {
-      this.authService.register(this.formRegister.value.email, this.formRegister.value.password,this.image,this.formRegister.value.username).then(authService => {
+    /*** REGISTRO FOTO DE PERFIL POR DEFECTO ***/
+    if (!this.camara) {
+      this.ruta = this.photoURL;
+      this.authService.register(this.formRegister.value.email, this.formRegister.value.password, this.ruta, this.formRegister.value.username)
+      .then(authService => {
         this.navCtrl.setRoot(LoginPage);
-        this.presentAlert("Registro","Se ha creado la cuenta");
+        this.presentAlert("Registro", "Se ha creado la cuenta");
       }, error => {
-        this.presentAlert("Registro","El usuario ya existe");
+        this.messageError(error);
+      });
+    }
+    /*** REGISTRO FOTO DE PERFIL DE LA CAMARA ***/
+    else {
+      this.upload();
+      this.authService.register(this.formRegister.value.email, this.formRegister.value.password, this.ruta, this.formRegister.value.username).then(authService => {
+        this.navCtrl.setRoot(LoginPage);
+        this.presentAlert("Registro", "Se ha creado la cuenta");
+      }, error => {
+        this.messageError(error);
       });
     }
   }
-
 }

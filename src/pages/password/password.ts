@@ -46,7 +46,7 @@ export class PasswordPage {
       })
       .catch((error) => {
         this.loading.dismiss();
-        this.showAlertError();
+        this.messageError(error);
       })
     })
   }
@@ -67,6 +67,24 @@ export class PasswordPage {
       buttons: ['Aceptar']
     });
     alert.present();
+  }
+
+  presentAlert(titulo: string, mensaje: string) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      subTitle: mensaje,
+      buttons: ['Aceptar']
+    });
+    alert.present();
+  }
+
+  messageError(error){
+    switch(error.code){
+      case "auth/invalid-email": this.presentAlert("Error", "El email no está registrado");
+                                        break;
+      case "auth/user-not-found": this.presentAlert("Error", "El email no está registrado");
+                                 break;
+    }
   }
 
   showLoading(loadingCtrl: LoadingController) {

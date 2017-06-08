@@ -28,6 +28,16 @@ page-login {
   ::-webkit-input-placeholder{
     color: white;
   }
+
+  .logo {
+    text-align:center;
+    margin-top:10px;
+    b{
+      color:white;
+      font-size:30px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+  }
 }
 .footer{
   .toolbar-background{

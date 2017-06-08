@@ -7,7 +7,7 @@
 
 
 <ion-content padding class="register">
-  <form [formGroup]="formRegister" padding (ngSubmit)="doRegister()" no-validate>
+  <form [formGroup]="formRegister" padding no-validate>
     <ion-list no-lines>
       <ion-item>
         <ion-input formControlName="username" type="text" placeholder="Nombre usuario" [(ngModel)]="newUser.username" ></ion-input>
@@ -34,12 +34,12 @@
         <p>Debe ser la misma clave</p>
     </ion-item>  
       <ion-item>
-        <img class="img" [src]="image" alt="image" *ngIf="image">
+        <img class="img" [src]="photoURL" alt="image">
       </ion-item>
       <ion-item>
-         <button ion-button block default [color]="primary" icon-right (click)="getPicture()"><ion-icon name="ios-camera" class="foto"></ion-icon>Foto de perfil</button>
+         <button ion-button block default [color]="primary" icon-right (click)="getPicture()"><ion-icon name="ios-camera" class="foto"></ion-icon>Hacer foto desde cámara</button>
       </ion-item>
-      <button ion-button block type="submit" [disabled]="!formRegister.valid"> Registrar </button>
+      <button ion-button block type="submit" (click)="doRegister()" [disabled]="!formRegister.valid"> Registrar </button>
     </ion-list>
     </form>  
 </ion-content>
