@@ -22,7 +22,7 @@ export class AuthService {
   register(email: string, password: string, photo: string, username: string): any {
   return this.fireAuth.createUserWithEmailAndPassword(email, password)
     .then((newUser) => {
-      this.userData.child(newUser.uid+'/profile').set({email: email, photo:photo, username: username});
+      this.userData.child(newUser.uid+'/profile').set({email: email, photo: photo, username: username});
     });
     
 }
