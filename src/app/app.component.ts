@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, Events, LoadingController, NavController, App} from 'ionic-angular';
+import { Platform, Events, LoadingController, App, AlertController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
@@ -27,7 +27,8 @@ export class MyApp {
     public af: AngularFire,
     public loadingCtrl: LoadingController,
     public _auth: AuthService,
-    public app: App) {
+    public app: App,
+    public alertCtrl: AlertController) {
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -36,6 +37,16 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+
+  showInfo() {
+    let alert = this.alertCtrl.create({
+      title: 'IonMusic',
+      subTitle: 'v1.0 - Añadido nuevos géneros musicales',
+      message: '@FranGR'
+    });
+    alert.present();
+  }
+
 
   showLoading(loadingCtrl: LoadingController) {
     this.loading = this.loadingCtrl.create({
@@ -57,6 +68,8 @@ export class MyApp {
     }
     )
   }
+
+  
 
 
 
